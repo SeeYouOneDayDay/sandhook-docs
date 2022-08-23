@@ -32,7 +32,9 @@ bool isSandHooker(char *const args[]) {
 
     return false;
 }
-
+// dex2oat --compile-pic
+// dex2oat --compile-pic --inline-max-code-units=0
+// dex2oat --compile-pic --inline-depth-limit=0
 char **build_new_argv(char *const argv[]) {
 
     int orig_argv_count = getArrayItemCount(argv);

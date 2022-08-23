@@ -403,6 +403,8 @@ extern "C" {
         }
     }
 
+    // 可以二进制直接获取，意味着可以动态获取，病执行么
+// @todo check
     void* getInterpreterBridge(bool isNative) {
         SandHook::ElfImg libart(art_lib_path);
         if (isNative) {

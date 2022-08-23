@@ -11,7 +11,7 @@
 #include "../includes/log.h"
 
 using namespace SandHook;
-
+// 获取后是否可以指定呀？
 ElfImg::ElfImg(const char *elf) {
     this->elf = elf;
     //load elf

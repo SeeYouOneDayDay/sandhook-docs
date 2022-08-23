@@ -26,7 +26,7 @@ void ArtMethod::tryDisableInline() {
 }
 
 void ArtMethod::disableInterpreterForO() {
-    if (SDK_INT >= ANDROID_O && SDK_INT < ANDROID_R && DEBUG) {
+    if (SDK_INT >= ANDROID_O && DEBUG) {
         setNative();
     }
 }
@@ -174,6 +174,8 @@ bool ArtMethod::compile(JNIEnv* env) {
     //some unknown error when trigger jit for jni method manually
     if (isNative())
         return false;
+    // get thread pear
+    // java Thread.currentThread() 变量nativePeer
     Size threadId = getAddressFromJavaByCallMethod(env, "com/swift/sandhook/SandHook", "getThreadId");
     if (threadId == 0)
         return false;
@@ -199,6 +201,7 @@ void ArtMethod::flushCache() {
 //    flushCacheExt(reinterpret_cast<Size>(this), size());
 }
 
+// 可以和pine/epic一起比对下
 void ArtMethod::backup(ArtMethod *backup) {
     // TODO https://github.com/canyie/pine/blob/b971bf658891c0cedb089fdd95d9e1604d12f8e2/core/src/main/cpp/art/art_method.cpp#L214
     memcpy(backup, this, size());

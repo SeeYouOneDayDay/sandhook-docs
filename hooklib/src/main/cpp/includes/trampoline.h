@@ -13,7 +13,8 @@
 #include <sys/mman.h>
 
 #define Code unsigned char *
-
+/// 十眼懵逼，硬编码，如何获取。
+// @ todo  need check isTRUE
 #if defined(__i386__)
 #define SIZE_REPLACEMENT_HOOK_TRAMPOLINE 4 * 9
 #define OFFSET_REPLACEMENT_ADDR_ART_METHOD 4 * 5

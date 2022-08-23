@@ -24,7 +24,7 @@ oatdump --oat-file=/data/app/~~_ZI_GvIjHlpeKZKaJXv2qA==/com.swift.sandhook-IwnNj
 
 ## Chinese
 
-[中文文档以及实现](https://github.com/ganyao114/SandHook/blob/master/doc/doc.md)
+[中文文档以及实现](doc/doc.md)
 
 [中文 Blog](https://blog.csdn.net/ganyao939543405/article/details/86661040)  
 
@@ -72,7 +72,7 @@ implementation 'com.swift.sandhook:nativehook:4.2.0'
 - method description must "same"(can be isAssignableFrom) with origin method
 - backup method same with above
 
-```java
+``` java
 @HookClass(Activity.class)
 //@HookReflectClass("android.app.Activity")
 public class ActivityHooker {
