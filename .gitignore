@@ -6,7 +6,7 @@ import-summary.txt
 *.dex
 
 
-#for idea temp file
+#for idea temp filex
 *.iws
 *.ipr
 *.iml
