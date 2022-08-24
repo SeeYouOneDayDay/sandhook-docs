@@ -157,7 +157,8 @@ public class HookerDexMakerNew implements HookMaker {
             if (loader != null) {
                 hookEntity = loadHookerClass(loader, className);
             }
-        } catch (Throwable throwable) {}
+        } catch (Throwable throwable) {
+        }
 
         //do generate
         if (hookEntity == null) {
@@ -204,7 +205,7 @@ public class HookerDexMakerNew implements HookMaker {
         mHookMethod = mHookClass.getMethod(METHOD_NAME_HOOK, mActualParameterTypes);
         mBackupMethod = mHookClass.getMethod(METHOD_NAME_BACKUP);
         setup(mHookClass);
-        Log.i("test","load hooker class:" + loader);
+        Log.i("test", "load hooker class:" + loader);
         return new HookWrapper.HookEntity(mMember, mHookMethod, mBackupMethod, false);
     }
 

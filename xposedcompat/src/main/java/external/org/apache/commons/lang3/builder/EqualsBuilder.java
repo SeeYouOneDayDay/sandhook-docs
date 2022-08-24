@@ -322,7 +322,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @since 2.0
      */
     public static boolean reflectionEquals(Object lhs, Object rhs, boolean testTransients, Class<?> reflectUpToClass,
-            String... excludeFields) {
+                                           String... excludeFields) {
         if (lhs == rhs) {
             return true;
         }
@@ -382,12 +382,12 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param excludeFields  array of field names to exclude from testing
      */
     private static void reflectionAppend(
-        Object lhs,
-        Object rhs,
-        Class<?> clazz,
-        EqualsBuilder builder,
-        boolean useTransients,
-        String[] excludeFields) {
+            Object lhs,
+            Object rhs,
+            Class<?> clazz,
+            EqualsBuilder builder,
+            boolean useTransients,
+            String[] excludeFields) {
 
         if (isRegistered(lhs, rhs)) {
             return;
@@ -400,9 +400,9 @@ public class EqualsBuilder implements Builder<Boolean> {
             for (int i = 0; i < fields.length && builder.isEquals; i++) {
                 Field f = fields[i];
                 if (!ArrayUtils.contains(excludeFields, f.getName())
-                    && (f.getName().indexOf('$') == -1)
-                    && (useTransients || !Modifier.isTransient(f.getModifiers()))
-                    && (!Modifier.isStatic(f.getModifiers()))) {
+                        && (f.getName().indexOf('$') == -1)
+                        && (useTransients || !Modifier.isTransient(f.getModifiers()))
+                        && (!Modifier.isStatic(f.getModifiers()))) {
                     try {
                         builder.append(f.get(lhs), f.get(rhs));
                     } catch (IllegalAccessException e) {
@@ -613,7 +613,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param lhs  the left hand <code>boolean</code>
      * @param rhs  the right hand <code>boolean</code>
      * @return EqualsBuilder - used to chain calls.
-      */
+     */
     public EqualsBuilder append(boolean lhs, boolean rhs) {
         if (isEquals == false) {
             return this;

@@ -20,6 +20,7 @@ import com.android.dx.rop.code.BasicBlock;
 import com.android.dx.rop.code.Insn;
 import com.android.dx.rop.code.InsnList;
 import com.android.dx.util.IntList;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -46,7 +47,8 @@ public final class Label {
 
     int id = -1;
 
-    public Label() {}
+    public Label() {
+    }
 
     boolean isEmpty() {
         return instructions.isEmpty();

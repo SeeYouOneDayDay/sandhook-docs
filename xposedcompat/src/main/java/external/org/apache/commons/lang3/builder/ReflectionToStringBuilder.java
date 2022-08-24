@@ -485,7 +485,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             return false;
         }
         if (this.excludeFieldNames != null
-            && Arrays.binarySearch(this.excludeFieldNames, field.getName()) >= 0) {
+                && Arrays.binarySearch(this.excludeFieldNames, field.getName()) >= 0) {
             // Reject fields from the getExcludeFieldNames list.
             return false;
         }

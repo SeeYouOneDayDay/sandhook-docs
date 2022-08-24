@@ -31,7 +31,7 @@ public final class DynamicBridge {
     private static File dexDir;
 
     //use internal stubs
-    private final static Map<Member,HookMethodEntity> entityMap = new HashMap<>();
+    private final static Map<Member, HookMethodEntity> entityMap = new HashMap<>();
     //use dex maker
     private final static HashMap<Member, Method> hookedInfo = new HashMap<>();
 

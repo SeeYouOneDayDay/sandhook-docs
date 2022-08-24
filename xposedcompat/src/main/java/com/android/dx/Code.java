@@ -62,8 +62,8 @@ import static com.android.dx.rop.type.Type.BT_SHORT;
  *
  * <h3>Math and Bit Operations</h3>
  * Transform a single value into another related value using {@link
- * #op(UnaryOp,Local,Local) op(UnaryOp, Local, Local)}. Transform two values
- * into a third value using {@link #op(BinaryOp,Local,Local,Local) op(BinaryOp,
+ * #op(UnaryOp, Local, Local) op(UnaryOp, Local, Local)}. Transform two values
+ * into a third value using {@link #op(BinaryOp, Local, Local, Local) op(BinaryOp,
  * Local, Local, Local)}. In either overload the first {@code Local} parameter
  * is where the result will be sent; the other {@code Local} parameters are the
  * inputs.
@@ -420,43 +420,43 @@ public final class Code {
         currentLabel.instructions.add(insn);
 
         switch (insn.getOpcode().getBranchingness()) {
-        case BRANCH_NONE:
-            if (branch != null) {
-                throw new IllegalArgumentException("unexpected branch: " + branch);
-            }
-            return;
+            case BRANCH_NONE:
+                if (branch != null) {
+                    throw new IllegalArgumentException("unexpected branch: " + branch);
+                }
+                return;
 
-        case BRANCH_RETURN:
-            if (branch != null) {
-                throw new IllegalArgumentException("unexpected branch: " + branch);
-            }
-            currentLabel = null;
-            break;
+            case BRANCH_RETURN:
+                if (branch != null) {
+                    throw new IllegalArgumentException("unexpected branch: " + branch);
+                }
+                currentLabel = null;
+                break;
 
-        case BRANCH_GOTO:
-            if (branch == null) {
-                throw new IllegalArgumentException("branch == null");
-            }
-            currentLabel.primarySuccessor = branch;
-            currentLabel = null;
-            break;
+            case BRANCH_GOTO:
+                if (branch == null) {
+                    throw new IllegalArgumentException("branch == null");
+                }
+                currentLabel.primarySuccessor = branch;
+                currentLabel = null;
+                break;
 
-        case Rop.BRANCH_IF:
-            if (branch == null) {
-                throw new IllegalArgumentException("branch == null");
-            }
-            splitCurrentLabel(branch, Collections.<Label>emptyList());
-            break;
+            case Rop.BRANCH_IF:
+                if (branch == null) {
+                    throw new IllegalArgumentException("branch == null");
+                }
+                splitCurrentLabel(branch, Collections.<Label>emptyList());
+                break;
 
-        case Rop.BRANCH_THROW:
-            if (branch != null) {
-                throw new IllegalArgumentException("unexpected branch: " + branch);
-            }
-            splitCurrentLabel(null, new ArrayList<Label>(catchLabels));
-            break;
+            case Rop.BRANCH_THROW:
+                if (branch != null) {
+                    throw new IllegalArgumentException("unexpected branch: " + branch);
+                }
+                splitCurrentLabel(null, new ArrayList<Label>(catchLabels));
+                break;
 
-        default:
-            throw new IllegalArgumentException();
+            default:
+                throw new IllegalArgumentException();
         }
     }
 
@@ -603,7 +603,7 @@ public final class Code {
      * Copies the value in {@code source} to the instance field {@code fieldId}
      * of {@code instance}.
      */
-   public <D, V> void iput(FieldId<D, V> fieldId, Local<? extends D> instance, Local<? extends V> source) {
+    public <D, V> void iput(FieldId<D, V> fieldId, Local<? extends D> instance, Local<? extends V> source) {
         addInstruction(new ThrowingCstInsn(Rops.opPutField(source.type.ropType), sourcePosition,
                 RegisterSpecList.make(source.spec(), instance.spec()), catches, fieldId.constant));
     }
@@ -662,7 +662,7 @@ public final class Code {
      *     null} if the return type is {@code void} or if its value not needed.
      */
     public <D, R> void invokeVirtual(MethodId<D, R> method, Local<? super R> target,
-            Local<? extends D> instance, Local<?>... args) {
+                                     Local<? extends D> instance, Local<?>... args) {
         invoke(Rops.opInvokeVirtual(method.prototype(true)), method, target, instance, args);
     }
 
@@ -676,7 +676,7 @@ public final class Code {
      *     null} if the return type is {@code void} or if its value not needed.
      */
     public <D, R> void invokeDirect(MethodId<D, R> method, Local<? super R> target,
-            Local<? extends D> instance, Local<?>... args) {
+                                    Local<? extends D> instance, Local<?>... args) {
         invoke(Rops.opInvokeDirect(method.prototype(true)), method, target, instance, args);
     }
 
@@ -688,7 +688,7 @@ public final class Code {
      *     null} if the return type is {@code void} or if its value not needed.
      */
     public <D, R> void invokeSuper(MethodId<D, R> method, Local<? super R> target,
-            Local<? extends D> instance, Local<?>... args) {
+                                   Local<? extends D> instance, Local<?>... args) {
         invoke(Rops.opInvokeSuper(method.prototype(true)), method, target, instance, args);
     }
 
@@ -701,12 +701,12 @@ public final class Code {
      *     null} if the return type is {@code void} or if its value not needed.
      */
     public <D, R> void invokeInterface(MethodId<D, R> method, Local<? super R> target,
-            Local<? extends D> instance, Local<?>... args) {
+                                       Local<? extends D> instance, Local<?>... args) {
         invoke(Rops.opInvokeInterface(method.prototype(true)), method, target, instance, args);
     }
 
     private <D, R> void invoke(Rop rop, MethodId<D, R> method, Local<? super R> target,
-            Local<? extends D> object, Local<?>... args) {
+                               Local<? extends D> object, Local<?>... args) {
         addInstruction(new ThrowingCstInsn(rop, sourcePosition, concatenate(object, args),
                 catches, method.constant));
         if (target != null) {
@@ -768,15 +768,15 @@ public final class Code {
     }
 
     private Rop getCastRop(com.android.dx.rop.type.Type sourceType,
-            com.android.dx.rop.type.Type targetType) {
+                           com.android.dx.rop.type.Type targetType) {
         if (sourceType.getBasicType() == BT_INT) {
             switch (targetType.getBasicType()) {
-            case BT_SHORT:
-                return Rops.TO_SHORT;
-            case BT_CHAR:
-                return Rops.TO_CHAR;
-            case BT_BYTE:
-                return Rops.TO_BYTE;
+                case BT_SHORT:
+                    return Rops.TO_SHORT;
+                case BT_CHAR:
+                    return Rops.TO_CHAR;
+                case BT_BYTE:
+                    return Rops.TO_BYTE;
             }
         }
         return Rops.opConv(targetType, sourceType);
@@ -897,7 +897,7 @@ public final class Code {
      */
     private void cleanUpLabels() {
         int id = 0;
-        for (Iterator<Label> i = labels.iterator(); i.hasNext();) {
+        for (Iterator<Label> i = labels.iterator(); i.hasNext(); ) {
             Label label = i.next();
             if (label.isEmpty()) {
                 i.remove();

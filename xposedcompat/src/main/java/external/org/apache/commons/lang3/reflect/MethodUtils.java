@@ -68,7 +68,7 @@ public class MethodUtils {
      * would match a <code>boolean</code> primitive.</p>
      *
      * <p>This is a convenient wrapper for
-     * {@link #invokeMethod(Object object,String methodName, Object[] args, Class[] parameterTypes)}.
+     * {@link #invokeMethod(Object object, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
      * @param object invoke method on this object
@@ -81,7 +81,7 @@ public class MethodUtils {
      * @throws IllegalAccessException if the requested method is not accessible via reflection
      */
     public static Object invokeMethod(Object object, String methodName,
-            Object... args) throws NoSuchMethodException,
+                                      Object... args) throws NoSuchMethodException,
             IllegalAccessException, InvocationTargetException {
         if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
@@ -114,7 +114,7 @@ public class MethodUtils {
      * @throws IllegalAccessException if the requested method is not accessible via reflection
      */
     public static Object invokeMethod(Object object, String methodName,
-            Object[] args, Class<?>[] parameterTypes)
+                                      Object[] args, Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException {
         if (parameterTypes == null) {
@@ -152,7 +152,7 @@ public class MethodUtils {
      *  via reflection
      */
     public static Object invokeExactMethod(Object object, String methodName,
-            Object... args) throws NoSuchMethodException,
+                                           Object... args) throws NoSuchMethodException,
             IllegalAccessException, InvocationTargetException {
         if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
@@ -185,7 +185,7 @@ public class MethodUtils {
      *  via reflection
      */
     public static Object invokeExactMethod(Object object, String methodName,
-            Object[] args, Class<?>[] parameterTypes)
+                                           Object[] args, Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException {
         if (args == null) {
@@ -224,7 +224,7 @@ public class MethodUtils {
      *  via reflection
      */
     public static Object invokeExactStaticMethod(Class<?> cls, String methodName,
-            Object[] args, Class<?>[] parameterTypes)
+                                                 Object[] args, Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException {
         if (args == null) {
@@ -251,7 +251,7 @@ public class MethodUtils {
      * would match a <code>boolean</code> primitive.</p>
      *
      * <p>This is a convenient wrapper for
-     * {@link #invokeStaticMethod(Class objectClass,String methodName,Object [] args,Class[] parameterTypes)}.
+     * {@link #invokeStaticMethod(Class objectClass, String methodName, Object [] args, Class[] parameterTypes)}.
      * </p>
      *
      * @param cls invoke static method on this class
@@ -266,7 +266,7 @@ public class MethodUtils {
      *  via reflection
      */
     public static Object invokeStaticMethod(Class<?> cls, String methodName,
-            Object... args) throws NoSuchMethodException,
+                                            Object... args) throws NoSuchMethodException,
             IllegalAccessException, InvocationTargetException {
         if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
@@ -302,7 +302,7 @@ public class MethodUtils {
      *  via reflection
      */
     public static Object invokeStaticMethod(Class<?> cls, String methodName,
-            Object[] args, Class<?>[] parameterTypes)
+                                            Object[] args, Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException {
         if (parameterTypes == null) {
@@ -339,7 +339,7 @@ public class MethodUtils {
      *  via reflection
      */
     public static Object invokeExactStaticMethod(Class<?> cls, String methodName,
-            Object... args) throws NoSuchMethodException,
+                                                 Object... args) throws NoSuchMethodException,
             IllegalAccessException, InvocationTargetException {
         if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
@@ -365,7 +365,7 @@ public class MethodUtils {
      * @return The accessible method
      */
     public static Method getAccessibleMethod(Class<?> cls, String methodName,
-            Class<?>... parameterTypes) {
+                                             Class<?>... parameterTypes) {
         try {
             return getAccessibleMethod(cls.getMethod(methodName,
                     parameterTypes));
@@ -417,7 +417,7 @@ public class MethodUtils {
      * @return the accessible method or <code>null</code> if not found
      */
     private static Method getAccessibleMethodFromSuperclass(Class<?> cls,
-            String methodName, Class<?>... parameterTypes) {
+                                                            String methodName, Class<?>... parameterTypes) {
         Class<?> parentClass = cls.getSuperclass();
         while (parentClass != null) {
             if (Modifier.isPublic(parentClass.getModifiers())) {
@@ -448,7 +448,7 @@ public class MethodUtils {
      * @return the accessible method or <code>null</code> if not found
      */
     private static Method getAccessibleMethodFromInterfaceNest(Class<?> cls,
-            String methodName, Class<?>... parameterTypes) {
+                                                               String methodName, Class<?>... parameterTypes) {
         Method method = null;
 
         // Search up the superclass chain
@@ -493,7 +493,7 @@ public class MethodUtils {
      * that will take the parameters given.<p>
      *
      * <p>This method is used by 
-     * {@link 
+     * {@link
      * #invokeMethod(Object object, String methodName, Object[] args, Class[] parameterTypes)}.
      *
      * <p>This method can match primitive parameter by passing in wrapper classes.
@@ -506,7 +506,7 @@ public class MethodUtils {
      * @return The accessible method
      */
     public static Method getMatchingAccessibleMethod(Class<?> cls,
-            String methodName, Class<?>... parameterTypes) {
+                                                     String methodName, Class<?>... parameterTypes) {
         try {
             Method method = cls.getMethod(methodName, parameterTypes);
             MemberUtils.setAccessibleWorkaround(method);
@@ -522,11 +522,11 @@ public class MethodUtils {
                 // get accessible version of method
                 Method accessibleMethod = getAccessibleMethod(method);
                 if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareParameterTypes(
-                            accessibleMethod.getParameterTypes(),
-                            bestMatch.getParameterTypes(),
-                            parameterTypes) < 0)) {
-                        bestMatch = accessibleMethod;
-                 }
+                        accessibleMethod.getParameterTypes(),
+                        bestMatch.getParameterTypes(),
+                        parameterTypes) < 0)) {
+                    bestMatch = accessibleMethod;
+                }
             }
         }
         if (bestMatch != null) {

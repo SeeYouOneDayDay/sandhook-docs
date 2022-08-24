@@ -1,9 +1,10 @@
 package com.swift.sandhook.xposedcompat;
 
+import static com.swift.sandhook.xposedcompat.utils.DexMakerUtils.MD5;
+
 import android.app.Application;
 import android.content.Context;
 
-import com.swift.sandhook.SandHookConfig;
 import com.swift.sandhook.xposedcompat.classloaders.ProxyClassLoader;
 import com.swift.sandhook.xposedcompat.methodgen.DynamicBridge;
 import com.swift.sandhook.xposedcompat.utils.ApplicationUtils;
@@ -16,8 +17,6 @@ import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedInit;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
-
-import static com.swift.sandhook.xposedcompat.utils.DexMakerUtils.MD5;
 
 public class XposedCompat {
 
@@ -36,7 +35,7 @@ public class XposedCompat {
     private static ClassLoader sandHookXposedClassLoader;
 
 
-    public static void loadModule(String modulePath, String moduleOdexDir, String moduleSoPath,ClassLoader classLoader) {
+    public static void loadModule(String modulePath, String moduleOdexDir, String moduleSoPath, ClassLoader classLoader) {
         XposedInit.loadModule(modulePath, moduleOdexDir, moduleSoPath, classLoader);
     }
 

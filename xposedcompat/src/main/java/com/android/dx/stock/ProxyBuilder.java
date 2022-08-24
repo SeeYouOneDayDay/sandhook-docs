@@ -475,7 +475,7 @@ public final class ProxyBuilder<T> {
     }
 
     private static <T, G extends T> void generateCodeForAllMethods(DexMaker dexMaker,
-            TypeId<G> generatedType, Method[] methodsToProxy, TypeId<T> superclassType) {
+                                                                   TypeId<G> generatedType, Method[] methodsToProxy, TypeId<T> superclassType) {
         TypeId<InvocationHandler> handlerType = TypeId.get(InvocationHandler.class);
         TypeId<Method[]> methodArrayType = TypeId.get(Method[].class);
         FieldId<G, InvocationHandler> handlerField =
@@ -644,7 +644,7 @@ public final class ProxyBuilder<T> {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     private static void invokeSuper(MethodId superMethod, Code superCode,
-            Local superThis, Local[] superArgs, Local superResult) {
+                                    Local superThis, Local[] superArgs, Local superResult) {
         superCode.invokeSuper(superMethod, superResult, superThis, superArgs);
     }
 
@@ -684,7 +684,7 @@ public final class ProxyBuilder<T> {
     }
 
     private static <T, G extends T> void generateConstructorsAndFields(DexMaker dexMaker,
-            TypeId<G> generatedType, TypeId<T> superType, Class<T> superClass) {
+                                                                       TypeId<G> generatedType, TypeId<T> superType, Class<T> superClass) {
         TypeId<InvocationHandler> handlerType = TypeId.get(InvocationHandler.class);
         TypeId<Method[]> methodArrayType = TypeId.get(Method[].class);
         FieldId<G, InvocationHandler> handlerField = generatedType.getField(
@@ -761,7 +761,7 @@ public final class ProxyBuilder<T> {
     }
 
     private void getMethodsToProxy(Set<MethodSetEntry> sink, Set<MethodSetEntry> seenFinalMethods,
-            Class<?> c) {
+                                   Class<?> c) {
         for (Method method : c.getDeclaredMethods()) {
             if ((method.getModifiers() & Modifier.FINAL) != 0) {
                 // Skip final methods, we can't override them. We
@@ -836,9 +836,9 @@ public final class ProxyBuilder<T> {
      * unbox the boxed result.  Otherwise we will cast the result.
      */
     // This one is tricky to fix, I gave up.
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private static void generateCodeForReturnStatement(Code code, Class methodReturnType,
-            Local localForResultOfInvoke, Local localOfMethodReturnType, Local aBoxedResult) {
+                                                       Local localForResultOfInvoke, Local localOfMethodReturnType, Local aBoxedResult) {
         if (PRIMITIVE_TO_UNBOX_METHOD.containsKey(methodReturnType)) {
             code.cast(aBoxedResult, localForResultOfInvoke);
             MethodId unboxingMethodFor = getUnboxMethodForPrimitive(methodReturnType);
@@ -857,6 +857,7 @@ public final class ProxyBuilder<T> {
     }
 
     private static final Map<Class<?>, Class<?>> PRIMITIVE_TO_BOXED;
+
     static {
         PRIMITIVE_TO_BOXED = new HashMap<>();
         PRIMITIVE_TO_BOXED.put(boolean.class, Boolean.class);
@@ -870,6 +871,7 @@ public final class ProxyBuilder<T> {
     }
 
     private static final Map<TypeId<?>, MethodId<?, ?>> PRIMITIVE_TYPE_TO_UNBOX_METHOD;
+
     static {
         PRIMITIVE_TYPE_TO_UNBOX_METHOD = new HashMap<>();
         for (Map.Entry<Class<?>, Class<?>> entry : PRIMITIVE_TO_BOXED.entrySet()) {
@@ -888,6 +890,7 @@ public final class ProxyBuilder<T> {
      * primitive value.
      */
     private static final Map<Class<?>, MethodId<?, ?>> PRIMITIVE_TO_UNBOX_METHOD;
+
     static {
         Map<Class<?>, MethodId<?, ?>> map = new HashMap<>();
         map.put(boolean.class, TypeId.get(Boolean.class).getMethod(TypeId.BOOLEAN, "booleanValue"));
@@ -980,7 +983,7 @@ public final class ProxyBuilder<T> {
         @Override
         public int hashCode() {
             return clazz.hashCode() + interfaces.hashCode() + requestedClassloader.hashCode()
-                    + (sharedClassLoader ? 1 : 0); 
+                    + (sharedClassLoader ? 1 : 0);
         }
 
         private ProxiedClass(Class<U> clazz, List<Class<?>> interfaces,

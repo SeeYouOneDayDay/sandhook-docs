@@ -230,7 +230,7 @@ public final class DexMaker {
      *     Modifier#FINAL} and {@link Modifier#ABSTRACT}.
      */
     public void declare(TypeId<?> type, String sourceFile, int flags,
-            TypeId<?> supertype, TypeId<?>... interfaces) {
+                        TypeId<?> supertype, TypeId<?>... interfaces) {
         TypeDeclaration declaration = getTypeDeclaration(type);
         int supportedFlags = Modifier.PUBLIC | Modifier.FINAL | Modifier.ABSTRACT
                 | AccessFlags.ACC_SYNTHETIC;
@@ -367,7 +367,7 @@ public final class DexMaker {
             checksum += sum;
         }
 
-        return "Generated_" + checksum +".jar";
+        return "Generated_" + checksum + ".jar";
     }
 
     /**
@@ -531,7 +531,8 @@ public final class DexMaker {
         if (result.exists()) {
             try {
                 deleteOldDex(result);
-            } catch (Throwable throwable) {}
+            } catch (Throwable throwable) {
+            }
         }
 
         /*
@@ -579,7 +580,7 @@ public final class DexMaker {
         File[] oats = dir.listFiles();
         if (oats == null)
             return;
-        for (File oatFile:oats) {
+        for (File oatFile : oats) {
             if (oatFile.isFile() && oatFile.getName().startsWith(nameStart))
                 oatFile.delete();
         }

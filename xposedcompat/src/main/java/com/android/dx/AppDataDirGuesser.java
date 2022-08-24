@@ -171,15 +171,15 @@ class AppDataDirGuesser {
     }
 
     static String[] splitPathList(String input) {
-       String trimmed = input;
-       if (input.startsWith("dexPath=")) {
+        String trimmed = input;
+        if (input.startsWith("dexPath=")) {
             int start = "dexPath=".length();
             int end = input.indexOf(',');
 
-           trimmed = (end == -1) ? input.substring(start) : input.substring(start, end);
-       }
+            trimmed = (end == -1) ? input.substring(start) : input.substring(start, end);
+        }
 
-       return trimmed.split(":");
+        return trimmed.split(":");
     }
 
     boolean fileOrDirExists(File file) {

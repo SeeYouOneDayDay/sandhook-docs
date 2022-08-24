@@ -1,4 +1,5 @@
 package com.swift.sandhook.xposedcompat.utils;
+
 import com.android.dx.Code;
 import com.android.dx.Local;
 import com.android.dx.TypeId;
@@ -147,8 +148,8 @@ public class DexMakerUtils {
         code.loadConstant(booleanLocal, false);
         code.loadConstant(byteLocal, (byte) 0);
         code.loadConstant(charLocal, '\0');
-        code.loadConstant(doubleLocal,0.0);
-        code.loadConstant(floatLocal,0.0f);
+        code.loadConstant(doubleLocal, 0.0);
+        code.loadConstant(floatLocal, 0.0f);
         code.loadConstant(intLocal, 0);
         code.loadConstant(longLocal, 0L);
         code.loadConstant(shortLocal, (short) 0);

@@ -92,7 +92,7 @@ public class HookStubManager {
                 return null;
             if (is64Bit && needStubArgCount > MAX_64_ARGS)
                 return null;
-            for (Class par:parType) {
+            for (Class par : parType) {
                 if (!ParamWrapper.support(par))
                     return null;
             }
@@ -123,7 +123,7 @@ public class HookStubManager {
 
     public static int getMethodId(int args, int index) {
         int id = index;
-        for (int i = 0;i < args;i++) {
+        for (int i = 0; i < args; i++) {
             id += stubSizes[i];
         }
         return id;
@@ -209,7 +209,7 @@ public class HookStubManager {
     }
 
     public static int getMatchStubArgsCount(int stubArgs) {
-        for (int i = stubArgs;i <= MAX_STUB_ARGS;i++) {
+        for (int i = stubArgs; i <= MAX_STUB_ARGS; i++) {
             if (curUseStubIndexes[i].get() < stubSizes[i])
                 return i;
         }
@@ -221,11 +221,11 @@ public class HookStubManager {
             return null;
         Class[] args = new Class[stubArgs];
         if (is64Bit) {
-            for (int i = 0;i < stubArgs;i++) {
+            for (int i = 0; i < stubArgs; i++) {
                 args[i] = long.class;
             }
         } else {
-            for (int i = 0;i < stubArgs;i++) {
+            for (int i = 0; i < stubArgs; i++) {
                 args[i] = int.class;
             }
         }
@@ -308,7 +308,7 @@ public class HookStubManager {
         // call "after method" callbacks
         int afterIdx = beforeIdx - 1;
         do {
-            Object lastResult =  param.getResult();
+            Object lastResult = param.getResult();
             Throwable lastThrowable = param.getThrowable();
 
             try {
@@ -380,7 +380,7 @@ public class HookStubManager {
         // call "after method" callbacks
         int afterIdx = beforeIdx - 1;
         do {
-            Object lastResult =  param.getResult();
+            Object lastResult = param.getResult();
             Throwable lastThrowable = param.getThrowable();
 
             try {

@@ -15,21 +15,24 @@ public final class FileResult {
     /** File last modification time. */
     public final long mtime;
 
-    /*package*/ public FileResult(long size, long mtime) {
+    /*package*/
+    public FileResult(long size, long mtime) {
         this.content = null;
         this.stream = null;
         this.size = size;
         this.mtime = mtime;
     }
 
-    /*package*/ public FileResult(byte[] content, long size, long mtime) {
+    /*package*/
+    public FileResult(byte[] content, long size, long mtime) {
         this.content = content;
         this.stream = null;
         this.size = size;
         this.mtime = mtime;
     }
 
-    /*package*/ public FileResult(InputStream stream, long size, long mtime) {
+    /*package*/
+    public FileResult(InputStream stream, long size, long mtime) {
         this.content = null;
         this.stream = stream;
         this.size = size;

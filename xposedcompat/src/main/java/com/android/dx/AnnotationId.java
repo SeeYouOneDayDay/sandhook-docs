@@ -221,7 +221,7 @@ public final class AnnotationId<D, V> {
         /** {@inheritDoc} */
         @Override
         public boolean equals(Object other) {
-            if (! (other instanceof Element)) {
+            if (!(other instanceof Element)) {
                 return false;
             }
 
@@ -242,7 +242,7 @@ public final class AnnotationId<D, V> {
             Class clazz = value.getClass();
             if (clazz.isEnum()) {
                 CstString descriptor = new CstString(TypeId.get(clazz).getName());
-                CstString name = new CstString(((Enum)value).name());
+                CstString name = new CstString(((Enum) value).name());
                 CstNat cstNat = new CstNat(name, descriptor);
                 return new CstEnumRef(cstNat);
             } else if (clazz.isArray()) {
@@ -250,7 +250,7 @@ public final class AnnotationId<D, V> {
             } else if (value instanceof TypeId) {
                 throw new UnsupportedOperationException("TypeId is not supported yet");
             } else {
-                return  Constants.getConstant(value);
+                return Constants.getConstant(value);
             }
         }
     }

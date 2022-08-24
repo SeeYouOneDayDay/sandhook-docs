@@ -17,6 +17,7 @@
 package com.android.dx;
 
 import com.android.dx.rop.cst.CstType;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,6 +67,7 @@ public final class TypeId<T> {
     public static final TypeId<String> STRING = new TypeId<>(com.android.dx.rop.type.Type.STRING);
 
     private static final Map<Class<?>, TypeId<?>> PRIMITIVE_TO_TYPE = new HashMap<>();
+
     static {
         PRIMITIVE_TO_TYPE.put(boolean.class, BOOLEAN);
         PRIMITIVE_TO_TYPE.put(byte.class, BYTE);

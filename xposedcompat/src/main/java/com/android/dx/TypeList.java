@@ -17,6 +17,7 @@
 package com.android.dx;
 
 import com.android.dx.rop.type.StdTypeList;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

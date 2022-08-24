@@ -196,7 +196,8 @@ public class HookerDexMaker implements HookMaker {
             if (loader != null) {
                 hookEntity = loadHookerClass(loader, className);
             }
-        } catch (Throwable throwable) {}
+        } catch (Throwable throwable) {
+        }
 
         //do generate
         if (hookEntity == null) {
@@ -349,7 +350,6 @@ public class HookerDexMaker implements HookMaker {
 
         Local[] allArgsLocals = createParameterLocals(code);
         Map<TypeId, Local> resultLocals = createResultLocals(code);
-
 
 
         //very very important!!!!!!!!!!!

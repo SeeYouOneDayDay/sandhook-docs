@@ -33,7 +33,8 @@ import com.android.dx.rop.cst.TypedConstant;
  * Factory for rop constants.
  */
 final class Constants {
-    private Constants() {}
+    private Constants() {
+    }
 
     /**
      * Returns a rop constant for the specified value.

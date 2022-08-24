@@ -10,10 +10,6 @@ import com.swift.sandhook.testHookers.LogHooker;
 import com.swift.sandhook.wrapper.HookErrorException;
 import com.swift.sandhook.xposedcompat.XposedCompat;
 
-import de.robv.android.xposed.XC_MethodHook;
-import de.robv.android.xposed.XposedBridge;
-import de.robv.android.xposed.XposedHelpers;
-
 public class MyApp extends Application {
 
     static {

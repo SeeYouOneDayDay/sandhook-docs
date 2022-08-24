@@ -35,7 +35,7 @@ public class HookMethodEntity {
             argStart = 1;
         }
         Object[] args = new Object[parType.length];
-        for (int i = argStart;i < parType.length + argStart;i++) {
+        for (int i = argStart; i < parType.length + argStart; i++) {
             args[i - argStart] = getArg(i - argStart, addresses[i]);
         }
         return args;
@@ -53,7 +53,7 @@ public class HookMethodEntity {
         } else {
             addresses = new long[oldAddress.length];
         }
-        for (int i = 0;i < parType.length;i++) {
+        for (int i = 0; i < parType.length; i++) {
             addresses[i + argStart] = ParamWrapper.objectToAddress(parType[i], args[i]);
         }
         return addresses;

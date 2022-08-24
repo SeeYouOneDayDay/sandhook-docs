@@ -74,6 +74,7 @@ public class ObjectUtils {
 
     // Defaulting
     //-----------------------------------------------------------------------
+
     /**
      * <p>Returns a default value if the object passed is {@code null}.</p>
      *
@@ -129,6 +130,7 @@ public class ObjectUtils {
 
     // Null-safe equals/hashCode
     //-----------------------------------------------------------------------
+
     /**
      * <p>Compares two objects for equality, where either one or both
      * objects may be {@code null}.</p>
@@ -231,6 +233,7 @@ public class ObjectUtils {
 
     // Identity ToString
     //-----------------------------------------------------------------------
+
     /**
      * <p>Gets the toString that would be produced by {@code Object}
      * if a class did not override toString itself. {@code null}
@@ -276,12 +279,13 @@ public class ObjectUtils {
             throw new NullPointerException("Cannot get the toString of a null identity");
         }
         buffer.append(object.getClass().getName())
-              .append('@')
-              .append(Integer.toHexString(System.identityHashCode(object)));
+                .append('@')
+                .append(Integer.toHexString(System.identityHashCode(object)));
     }
 
     // ToString
     //-----------------------------------------------------------------------
+
     /**
      * <p>Gets the {@code toString} of an {@code Object} returning
      * an empty string ("") if {@code null} input.</p>
@@ -315,7 +319,7 @@ public class ObjectUtils {
      * ObjectUtils.toString(Boolean.TRUE, "null") = "true"
      * </pre>
      *
-     * @see StringUtils#defaultString(String,String)
+     * @see StringUtils#defaultString(String, String)
      * @see String#valueOf(Object)
      * @param obj  the Object to {@code toString}, may be null
      * @param nullStr  the String to return if {@code null} input, may be null
@@ -328,6 +332,7 @@ public class ObjectUtils {
 
     // Comparable
     //-----------------------------------------------------------------------
+
     /**
      * <p>Null safe comparison of Comparables.</p>
      *
@@ -460,6 +465,7 @@ public class ObjectUtils {
 
     // Mode
     //-----------------------------------------------------------------------
+
     /**
      * Find the most frequently occurring item.
      *
@@ -497,6 +503,7 @@ public class ObjectUtils {
 
     // cloning
     //-----------------------------------------------------------------------
+
     /**
      * <p>Clone an object.</p>
      *
@@ -526,18 +533,17 @@ public class ObjectUtils {
                     result = clone.invoke(obj);
                 } catch (final NoSuchMethodException e) {
                     throw new CloneFailedException("Cloneable type "
-                        + obj.getClass().getName()
-                        + " has no clone method", e);
+                            + obj.getClass().getName()
+                            + " has no clone method", e);
                 } catch (final IllegalAccessException e) {
                     throw new CloneFailedException("Cannot clone Cloneable type "
-                        + obj.getClass().getName(), e);
+                            + obj.getClass().getName(), e);
                 } catch (final InvocationTargetException e) {
                     throw new CloneFailedException("Exception cloning Cloneable type "
-                        + obj.getClass().getName(), e.getCause());
+                            + obj.getClass().getName(), e.getCause());
                 }
             }
-            @SuppressWarnings("unchecked")
-            final T checked = (T) result;
+            @SuppressWarnings("unchecked") final T checked = (T) result;
             return checked;
         }
 
@@ -567,6 +573,7 @@ public class ObjectUtils {
 
     // Null
     //-----------------------------------------------------------------------
+
     /**
      * <p>Class used as a null placeholder where {@code null}
      * has another meaning.</p>

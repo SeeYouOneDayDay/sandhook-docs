@@ -135,7 +135,7 @@ public class ArrayUtils {
      * to operate.</p>
      */
     public ArrayUtils() {
-      super();
+        super();
     }
 
 
@@ -144,6 +144,7 @@ public class ArrayUtils {
 
     // Basic methods handling multi-dimensional arrays
     //-----------------------------------------------------------------------
+
     /**
      * <p>Outputs an array as a String, treating {@code null} as an empty array.</p>
      *
@@ -206,6 +207,7 @@ public class ArrayUtils {
 
     // To map
     //-----------------------------------------------------------------------
+
     /**
      * <p>Converts the given array into a {@link Map}. Each element of the array
      * must be either a {@link Map.Entry} or an Array, containing at least two
@@ -239,14 +241,14 @@ public class ArrayUtils {
         for (int i = 0; i < array.length; i++) {
             Object object = array[i];
             if (object instanceof Map.Entry<?, ?>) {
-                Map.Entry<?,?> entry = (Map.Entry<?,?>) object;
+                Map.Entry<?, ?> entry = (Map.Entry<?, ?>) object;
                 map.put(entry.getKey(), entry.getValue());
             } else if (object instanceof Object[]) {
                 Object[] entry = (Object[]) object;
                 if (entry.length < 2) {
                     throw new IllegalArgumentException("Array element " + i + ", '"
-                        + object
-                        + "', has a length less than 2");
+                            + object
+                            + "', has a length less than 2");
                 }
                 map.put(entry[0], entry[1]);
             } else {
@@ -260,26 +262,27 @@ public class ArrayUtils {
 
     // Generic array
     //-----------------------------------------------------------------------
+
     /**
      * <p>Create a type-safe generic array.</p>
      *
      * <p>The Java language does not allow an array to be created from a generic type:</p>
      *
      * <pre>
-    public static &lt;T&gt; T[] createAnArray(int size) {
-        return new T[size]; // compiler error here
-    }
-    public static &lt;T&gt; T[] createAnArray(int size) {
-        return (T[])new Object[size]; // ClassCastException at runtime
-    }
+     public static &lt;T&gt; T[] createAnArray(int size) {
+     return new T[size]; // compiler error here
+     }
+     public static &lt;T&gt; T[] createAnArray(int size) {
+     return (T[])new Object[size]; // ClassCastException at runtime
+     }
      * </pre>
      *
      * <p>Therefore new arrays of generic types can be created with this method.
      * For example, an array of Strings can be created:</p>
      *
      * <pre>
-    String[] array = ArrayUtils.toArray("1", "2");
-    String[] emptyArray = ArrayUtils.&lt;String&gt;toArray();
+     String[] array = ArrayUtils.toArray("1", "2");
+     String[] emptyArray = ArrayUtils.&lt;String&gt;toArray();
      * </pre>
      *
      * <p>The method is typically used in scenarios, where the caller itself uses generic types
@@ -295,7 +298,7 @@ public class ArrayUtils {
      * @param  <T>   the array's element type
      * @param  items  the varargs array items, null allowed
      * @return the array, not null unless a null array is passed in
-     * @since  3.0
+     * @since 3.0
      */
     public static <T> T[] toArray(final T... items) {
         return items;
@@ -303,6 +306,7 @@ public class ArrayUtils {
 
     // Clone
     //-----------------------------------------------------------------------
+
     /**
      * <p>Shallow clones an array returning a typecast result and handling
      * {@code null}.</p>
@@ -453,6 +457,7 @@ public class ArrayUtils {
 
     // nullToEmpty
     //-----------------------------------------------------------------------
+
     /**
      * <p>Defensive programming technique to change a {@code null}
      * reference to an empty one.</p>
@@ -815,6 +820,7 @@ public class ArrayUtils {
 
     // Subarrays
     //-----------------------------------------------------------------------
+
     /**
      * <p>Produces a new array containing the elements between
      * the start and end indices.</p>
@@ -1180,6 +1186,7 @@ public class ArrayUtils {
 
     // Is same length
     //-----------------------------------------------------------------------
+
     /**
      * <p>Checks whether two arrays are the same length, treating
      * {@code null} arrays as length {@code 0}.
@@ -1193,9 +1200,9 @@ public class ArrayUtils {
      */
     public static boolean isSameLength(Object[] array1, Object[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
+                (array2 == null && array1 != null && array1.length > 0) ||
+                (array1 != null && array2 != null && array1.length != array2.length)) {
+            return false;
         }
         return true;
     }
@@ -1211,9 +1218,9 @@ public class ArrayUtils {
      */
     public static boolean isSameLength(long[] array1, long[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
+                (array2 == null && array1 != null && array1.length > 0) ||
+                (array1 != null && array2 != null && array1.length != array2.length)) {
+            return false;
         }
         return true;
     }
@@ -1229,9 +1236,9 @@ public class ArrayUtils {
      */
     public static boolean isSameLength(int[] array1, int[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
+                (array2 == null && array1 != null && array1.length > 0) ||
+                (array1 != null && array2 != null && array1.length != array2.length)) {
+            return false;
         }
         return true;
     }
@@ -1247,9 +1254,9 @@ public class ArrayUtils {
      */
     public static boolean isSameLength(short[] array1, short[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
+                (array2 == null && array1 != null && array1.length > 0) ||
+                (array1 != null && array2 != null && array1.length != array2.length)) {
+            return false;
         }
         return true;
     }
@@ -1265,9 +1272,9 @@ public class ArrayUtils {
      */
     public static boolean isSameLength(char[] array1, char[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
+                (array2 == null && array1 != null && array1.length > 0) ||
+                (array1 != null && array2 != null && array1.length != array2.length)) {
+            return false;
         }
         return true;
     }
@@ -1283,9 +1290,9 @@ public class ArrayUtils {
      */
     public static boolean isSameLength(byte[] array1, byte[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
+                (array2 == null && array1 != null && array1.length > 0) ||
+                (array1 != null && array2 != null && array1.length != array2.length)) {
+            return false;
         }
         return true;
     }
@@ -1301,9 +1308,9 @@ public class ArrayUtils {
      */
     public static boolean isSameLength(double[] array1, double[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
+                (array2 == null && array1 != null && array1.length > 0) ||
+                (array1 != null && array2 != null && array1.length != array2.length)) {
+            return false;
         }
         return true;
     }
@@ -1319,9 +1326,9 @@ public class ArrayUtils {
      */
     public static boolean isSameLength(float[] array1, float[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
+                (array2 == null && array1 != null && array1.length > 0) ||
+                (array1 != null && array2 != null && array1.length != array2.length)) {
+            return false;
         }
         return true;
     }
@@ -1337,14 +1344,15 @@ public class ArrayUtils {
      */
     public static boolean isSameLength(boolean[] array1, boolean[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
-            (array2 == null && array1 != null && array1.length > 0) ||
-            (array1 != null && array2 != null && array1.length != array2.length)) {
-                return false;
+                (array2 == null && array1 != null && array1.length > 0) ||
+                (array1 != null && array2 != null && array1.length != array2.length)) {
+            return false;
         }
         return true;
     }
 
     //-----------------------------------------------------------------------
+
     /**
      * <p>Returns the length of the specified array.
      * This method can deal with {@code Object} arrays and with primitive arrays.</p>
@@ -1390,6 +1398,7 @@ public class ArrayUtils {
 
     // Reverse
     //-----------------------------------------------------------------------
+
     /**
      * <p>Reverses the order of the given array.</p>
      *
@@ -1604,6 +1613,7 @@ public class ArrayUtils {
 
     // Object IndexOf
     //-----------------------------------------------------------------------
+
     /**
      * <p>Finds the index of the given object in the array.</p>
      *
@@ -1723,6 +1733,7 @@ public class ArrayUtils {
 
     // long IndexOf
     //-----------------------------------------------------------------------
+
     /**
      * <p>Finds the index of the given value in the array.</p>
      *
@@ -1826,6 +1837,7 @@ public class ArrayUtils {
 
     // int IndexOf
     //-----------------------------------------------------------------------
+
     /**
      * <p>Finds the index of the given value in the array.</p>
      *
@@ -1929,6 +1941,7 @@ public class ArrayUtils {
 
     // short IndexOf
     //-----------------------------------------------------------------------
+
     /**
      * <p>Finds the index of the given value in the array.</p>
      *
@@ -2032,6 +2045,7 @@ public class ArrayUtils {
 
     // char IndexOf
     //-----------------------------------------------------------------------
+
     /**
      * <p>Finds the index of the given value in the array.</p>
      *
@@ -2140,6 +2154,7 @@ public class ArrayUtils {
 
     // byte IndexOf
     //-----------------------------------------------------------------------
+
     /**
      * <p>Finds the index of the given value in the array.</p>
      *
@@ -2243,6 +2258,7 @@ public class ArrayUtils {
 
     // double IndexOf
     //-----------------------------------------------------------------------
+
     /**
      * <p>Finds the index of the given value in the array.</p>
      *
@@ -2467,6 +2483,7 @@ public class ArrayUtils {
 
     // float IndexOf
     //-----------------------------------------------------------------------
+
     /**
      * <p>Finds the index of the given value in the array.</p>
      *
@@ -2570,6 +2587,7 @@ public class ArrayUtils {
 
     // boolean IndexOf
     //-----------------------------------------------------------------------
+
     /**
      * <p>Finds the index of the given value in the array.</p>
      *
@@ -2678,6 +2696,7 @@ public class ArrayUtils {
 
     // Character array converters
     // ----------------------------------------------------------------------
+
     /**
      * <p>Converts an array of object Characters to primitives.</p>
      *
@@ -2742,10 +2761,11 @@ public class ArrayUtils {
             result[i] = Character.valueOf(array[i]);
         }
         return result;
-     }
+    }
 
     // Long array converters
     // ----------------------------------------------------------------------
+
     /**
      * <p>Converts an array of object Longs to primitives.</p>
      *
@@ -2814,6 +2834,7 @@ public class ArrayUtils {
 
     // Int array converters
     // ----------------------------------------------------------------------
+
     /**
      * <p>Converts an array of object Integers to primitives.</p>
      *
@@ -2882,6 +2903,7 @@ public class ArrayUtils {
 
     // Short array converters
     // ----------------------------------------------------------------------
+
     /**
      * <p>Converts an array of object Shorts to primitives.</p>
      *
@@ -2950,6 +2972,7 @@ public class ArrayUtils {
 
     // Byte array converters
     // ----------------------------------------------------------------------
+
     /**
      * <p>Converts an array of object Bytes to primitives.</p>
      *
@@ -3018,6 +3041,7 @@ public class ArrayUtils {
 
     // Double array converters
     // ----------------------------------------------------------------------
+
     /**
      * <p>Converts an array of object Doubles to primitives.</p>
      *
@@ -3086,6 +3110,7 @@ public class ArrayUtils {
 
     //   Float array converters
     // ----------------------------------------------------------------------
+
     /**
      * <p>Converts an array of object Floats to primitives.</p>
      *
@@ -3154,6 +3179,7 @@ public class ArrayUtils {
 
     // Boolean array converters
     // ----------------------------------------------------------------------
+
     /**
      * <p>Converts an array of object Booleans to primitives.</p>
      *
@@ -3221,6 +3247,7 @@ public class ArrayUtils {
     }
 
     // ----------------------------------------------------------------------
+
     /**
      * <p>Checks if an array of Objects is empty or {@code null}.</p>
      *
@@ -3321,6 +3348,7 @@ public class ArrayUtils {
     }
 
     // ----------------------------------------------------------------------
+
     /**
      * <p>Checks if an array of Objects is not empty or not {@code null}.</p>
      *
@@ -3329,9 +3357,9 @@ public class ArrayUtils {
      * @return {@code true} if the array is not empty or not {@code null}
      * @since 2.5
      */
-     public static <T> boolean isNotEmpty(T[] array) {
-         return (array != null && array.length != 0);
-     }
+    public static <T> boolean isNotEmpty(T[] array) {
+        return (array != null && array.length != 0);
+    }
 
     /**
      * <p>Checks if an array of primitive longs is not empty or not {@code null}.</p>
@@ -3465,9 +3493,9 @@ public class ArrayUtils {
              * - safer, in case check turns out to be too strict
              */
             final Class<?> type2 = array2.getClass().getComponentType();
-            if (!type1.isAssignableFrom(type2)){
-                throw new IllegalArgumentException("Cannot store "+type2.getName()+" in an array of "
-                        +type1.getName(), ase);
+            if (!type1.isAssignableFrom(type2)) {
+                throw new IllegalArgumentException("Cannot store " + type2.getName() + " in an array of "
+                        + type1.getName(), ase);
             }
             throw ase; // No, so rethrow original
         }
@@ -3737,7 +3765,7 @@ public class ArrayUtils {
      */
     public static <T> T[] add(T[] array, T element) {
         Class<?> type;
-        if (array != null){
+        if (array != null) {
             type = array.getClass();
         } else if (element != null) {
             type = element.getClass();
@@ -3772,7 +3800,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean[] add(boolean[] array, boolean element) {
-        boolean[] newArray = (boolean[])copyArrayGrow1(array, Boolean.TYPE);
+        boolean[] newArray = (boolean[]) copyArrayGrow1(array, Boolean.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -3799,7 +3827,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static byte[] add(byte[] array, byte element) {
-        byte[] newArray = (byte[])copyArrayGrow1(array, Byte.TYPE);
+        byte[] newArray = (byte[]) copyArrayGrow1(array, Byte.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -3826,7 +3854,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static char[] add(char[] array, char element) {
-        char[] newArray = (char[])copyArrayGrow1(array, Character.TYPE);
+        char[] newArray = (char[]) copyArrayGrow1(array, Character.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -3853,7 +3881,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static double[] add(double[] array, double element) {
-        double[] newArray = (double[])copyArrayGrow1(array, Double.TYPE);
+        double[] newArray = (double[]) copyArrayGrow1(array, Double.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -3880,7 +3908,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static float[] add(float[] array, float element) {
-        float[] newArray = (float[])copyArrayGrow1(array, Float.TYPE);
+        float[] newArray = (float[]) copyArrayGrow1(array, Float.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -3907,7 +3935,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static int[] add(int[] array, int element) {
-        int[] newArray = (int[])copyArrayGrow1(array, Integer.TYPE);
+        int[] newArray = (int[]) copyArrayGrow1(array, Integer.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -3934,7 +3962,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static long[] add(long[] array, long element) {
-        long[] newArray = (long[])copyArrayGrow1(array, Long.TYPE);
+        long[] newArray = (long[]) copyArrayGrow1(array, Long.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -3961,7 +3989,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static short[] add(short[] array, short element) {
-        short[] newArray = (short[])copyArrayGrow1(array, Short.TYPE);
+        short[] newArray = (short[]) copyArrayGrow1(array, Short.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -4024,7 +4052,8 @@ public class ArrayUtils {
         } else {
             throw new IllegalArgumentException("Array and element cannot both be null");
         }
-        @SuppressWarnings("unchecked") // the add method creates an array of type clss, which is type T
+        @SuppressWarnings("unchecked")
+        // the add method creates an array of type clss, which is type T
         final T[] newArray = (T[]) add(array, index, element, clss);
         return newArray;
     }
