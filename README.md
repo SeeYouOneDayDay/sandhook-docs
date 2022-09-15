@@ -2,7 +2,7 @@
 - Android ART Hook
 - Native Inline Hook
 
-# changes
+## changes
 - 支持android 12/12.1/13 改动见 https://mp.weixin.qq.com/s/IWBFTdfrzhax0CMgZYHNsQ
 - 部分调整和注释
 - 梳理美化Hook兼容测试报告
@@ -15,12 +15,11 @@
     - 实例方法Inline模式Hook
     - 实例方法Replace模式Hook
 
-# 调试
+## 调试
+
+``` 
 oatdump --oat-file=/data/app/~~_ZI_GvIjHlpeKZKaJXv2qA==/com.swift.sandhook-IwnNjGrPlokppLa3F94gPQ==/oat/arm64/base.odex --class-filter=com.swift.sandhook.test --output=oatdump.txt
-
-## Version 
-
-[ ![Version](https://api.bintray.com/packages/ganyao114/maven/hooklib/images/download.svg) ](https://bintray.com/ganyao114/maven/hooklib/_latestVersion)
+```
 
 ## Chinese
 
@@ -28,19 +27,17 @@ oatdump --oat-file=/data/app/~~_ZI_GvIjHlpeKZKaJXv2qA==/com.swift.sandhook-IwnNj
 
 [中文 Blog](https://blog.csdn.net/ganyao939543405/article/details/86661040)  
 
-与 VirtualApp 相关的商业合作请联系微信：10890
-
-# arch support 
+## arch support 
 
 - ARM64
 - ARM32(no tested)
 - Thumb-2
 
-# OS
+## OS
 
 4.4(ART Runtime) - 11.0 dev-preview-1
 
-# Project Struct
+## Project Struct
 
 - annotation<br/>
 annotation api
@@ -55,7 +52,7 @@ annother implement of xposed api compat for sandhook(hook more fast first time)
 - hookers<br/>
 hook plugin demo for annotation api
 
-# how to use
+## how to use
 
 ```gradle
 implementation 'com.swift.sandhook:hooklib:4.2.0'
@@ -63,7 +60,7 @@ implementation 'com.swift.sandhook:hooklib:4.2.0'
 implementation 'com.swift.sandhook:nativehook:4.2.0'
 ```
 
-## Annotation API
+### Annotation API
 
 --------------------------------------------------------------------
 
@@ -145,7 +142,7 @@ in your plugin
 if OS <= 5.1 
 backup method can call itself to avoid be inlining
 
-## Xposed API
+### Xposed API
 
 --------------------------------------------------------------------
 
@@ -162,7 +159,7 @@ implementation 'com.swift.sandhook:xposedcompat:4.2.0'
 implementation 'com.swift.sandhook:xposedcompat_new:4.2.0'
 ```
 
-```java
+``` java
 
 //setup for xposed
 //for xposed compat only(no need xposed comapt new)
@@ -190,23 +187,23 @@ XposedHelpers.findAndHookMethod(Activity.class, "onResume", new XC_MethodHook() 
 
 ```
 
-# Notice
+## Notice
 
-## Disable Inline
+### Disable Inline
 
-### JIT inline
+#### JIT inline
 
 We can do nothing to prevent some methods been inlined before app start, but we can try to disable VM Jit Inline after launch.
 
 if you will hook some method that could be inlined, please call SandHook.disableVMInline()(OS >= 7.0) in Application.OnCreate()
 
-### Inline by dex2oat
+#### Inline by dex2oat
 
-#### Background dex2oat
+##### Background dex2oat
 
 SandHook.tryDisableProfile(getPackageName());
 
-#### dex2oat by DexClassLoader
+##### dex2oat by DexClassLoader
 
 SandHook.disableDex2oatInline(fullyDisableDex2oat);
 
@@ -214,26 +211,27 @@ or
 
 ArtDexOptimizer.dexoatAndDisableInline to dex2oat manuly 
 
-### Deoptimize(Boot Image)
+#### Deoptimize(Boot Image)
 
 You can also deoptimize a caller that inlined your hook method by SandHook.deCompile(caller), just implement >= 7.0
 
-## Hidden API
+### Hidden API
 
 SandHook.passApiCheck();
 
 To bypass hidden api on P & Q
 
-## Debuggable
+### Debuggable
 
 You must set debuggble of the target hook process before init when OS >= 8.0.  
 
 SandHookConfig.DEBUG = <Debuggable of target process>  
 
-# Native Hook
+## Native Hook
 
-## simple hook(no backup)
-#include "includes/sandhook.h"  
+### simple hook(no backup)
+
+include "includes/sandhook.h"  
 
 bool nativeHookNoBackup(void* origin, void* hook);
 
