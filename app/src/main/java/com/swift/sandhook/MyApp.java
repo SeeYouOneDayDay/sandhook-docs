@@ -10,22 +10,30 @@ import com.swift.sandhook.testHookers.LogHooker;
 import com.swift.sandhook.wrapper.HookErrorException;
 import com.swift.sandhook.xposedcompat.XposedCompat;
 
+import org.lsposed.hiddenapibypass.HiddenApiBypass;
+
 public class MyApp extends Application {
 
     static {
-        System.loadLibrary("app");
+        try {
+            System.loadLibrary("app");
+        } catch (Throwable e) {
+            Log.e("sanbo.app", Log.getStackTraceString(e));
+        }
     }
 
     //for test pending hook case
     public volatile static boolean initedTest = false;
 
+    // 测试所有的选项
+    public volatile static boolean DEBUG_ALL = false;
+
     @Override
     public void onCreate() {
         super.onCreate();
         try {
-
+            HiddenApiBypass.unseal(this);
             NativeHookTest.hook();
-
             SandHookConfig.DEBUG = true;
             SandHookConfig.delayHook = false;
 
@@ -40,9 +48,7 @@ public class MyApp extends Application {
             SandHook.disableDex2oatInline(false);
             SandHook.forbidUseNterp();
 
-            if (SandHookConfig.SDK_INT >= Build.VERSION_CODES.P) {
-                SandHook.passApiCheck();
-            }
+            HiddenApiBypass.unseal(this);
 
             try {
                 SandHook.addHookClass(
@@ -62,7 +68,10 @@ public class MyApp extends Application {
             XposedCompat.isFirstApplication = true;
             XposedCompat.useInternalStub = true;
 
-            HookPass.init();
+            if (DEBUG_ALL) {
+                HookPass.init();
+            }
+
         } catch (Throwable e) {
             Log.e("SandHook", "init sandhook test error:", e);
         }

@@ -164,6 +164,7 @@ public final class XposedBridge {
             int slot;
             Class<?>[] parameterTypes;
             Class<?> returnType;
+            //  区分dalvik 和art,默认是art
             if (runtime == RUNTIME_ART) {
                 slot = 0;
                 parameterTypes = null;
@@ -268,13 +269,13 @@ public final class XposedBridge {
     }
 
     /**
-     * Intercept every call to the specified method and call a handler function instead.
-     * @param method The method to intercept
+     * Intercept every call to the specified origin and call a handler function instead.
+     * @param origin The origin to intercept
      */
-    private synchronized static void hookMethodNative(final Member method, Class<?> declaringClass,
+    private synchronized static void hookMethodNative(final Member origin, Class<?> declaringClass,
                                                       int slot, final Object additionalInfoObj) {
-        DynamicBridge.hookMethod(method, (AdditionalHookInfo) additionalInfoObj);
-
+        // 即将调用到sandhook内部调用
+        DynamicBridge.hookMethod(origin, (AdditionalHookInfo) additionalInfoObj);
     }
 
 
@@ -360,6 +361,7 @@ public final class XposedBridge {
         }
     }
 
+    //简单的hook详情，包含回调列表、参数类型、返回类型
     public static class AdditionalHookInfo {
         public final CopyOnWriteSortedSet<XC_MethodHook> callbacks;
         public final Class<?>[] parameterTypes;

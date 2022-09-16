@@ -6,6 +6,7 @@ import java.lang.reflect.Member;
 import java.util.HashSet;
 import java.util.Set;
 
+//不能hook列表
 public class HookBlackList {
 
     public static Set<String> methodBlackList = new HashSet<>();
@@ -38,6 +39,7 @@ public class HookBlackList {
     }
 
     public final static boolean canNotHookByStub(Member origin) {
+        // 安卓10和以上版本不能使用内部方法方式hook Thread.ckass
         if (SandHookConfig.SDK_INT >= 29 && Thread.class.equals(origin.getDeclaringClass())) {
             return true;
         }

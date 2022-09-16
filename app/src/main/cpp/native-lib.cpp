@@ -60,3 +60,15 @@ Java_com_swift_sandhook_NativeHookTest_hook(JNIEnv *env, jclass clazz) {
         }
     }
 }
+extern "C"
+JNIEXPORT jboolean JNICALL
+Java_com_swift_sandhook_NativeHookTest_exec(JNIEnv *env, jclass clazz) {
+    return false;
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_swift_sandhook_test_TestClass_jni_1test(JNIEnv *env, jobject instance) {
+    int a = 1 + 1;
+    int b = a + 1;
+}

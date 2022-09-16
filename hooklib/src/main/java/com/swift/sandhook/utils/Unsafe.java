@@ -107,6 +107,18 @@ public final class Unsafe {
             return 0;
         }
     }
+    public static long objectFieldOffset(Field field) {
+        if (unsafe == null || unsafeClass == null) {
+            return 0;
+        }
+        try {
+            // android 4有接口:  private static native long objectFieldOffset0(Field field);
+            //所有版本均有接口：public long objectFieldOffset(Field field)
+            return (long) unsafeClass.getDeclaredMethod("objectFieldOffset", Field.class).invoke(unsafe, field);
+        } catch (Throwable e) {
+        }
+        return 0;
+    }
 
     public static long getObjectAddress(Object obj) {
         try {

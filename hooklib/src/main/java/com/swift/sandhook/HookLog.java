@@ -5,7 +5,7 @@ import android.util.Log;
 
 public class HookLog {
 
-    public static final String TAG = "SandHook";
+    public static final String TAG = "sanbo.HookLog";
 
     public static boolean DEBUG = SandHookConfig.DEBUG;
 

@@ -19,7 +19,7 @@ public class PluginHooker {
     @HookMethod("testPluginHook")
     @MethodReflectParams("com.swift.sandhook.test.TestClass")
     public static int testPluginHook(Object thiz, Object test) {
-        Log.e("PluginHooker", "testPluginHook be hooked");
+        Log.e("sanbo.PluginHooker", "testPluginHook be hooked");
         return testPluginHookBackup(thiz, test);
     }
 

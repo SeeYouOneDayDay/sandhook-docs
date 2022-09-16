@@ -11,7 +11,7 @@ public class AbsHooker {
 
     @HookMethod("dosth")
     public static void ondosth(Object thiz) {
-        Log.e("AbsHooker", "dosth hook success ");
+        Log.e("sanbo.AbsHooker", "dosth hook success ");
         ondosthBackup(thiz);
     }
 

@@ -7,7 +7,6 @@ import com.swift.sandhook.annotation.HookMode;
 import com.swift.sandhook.blacklist.HookBlackList;
 import com.swift.sandhook.utils.ClassStatusUtils;
 import com.swift.sandhook.utils.FileUtils;
-import com.swift.sandhook.utils.ReflectionUtils;
 import com.swift.sandhook.utils.Unsafe;
 import com.swift.sandhook.wrapper.HookErrorException;
 import com.swift.sandhook.wrapper.HookWrapper;
@@ -358,9 +357,9 @@ public class SandHook {
         return SandHookMethodResolver.getArtMethod(member);
     }
 
-    public static boolean passApiCheck() {
-        return ReflectionUtils.passApiCheck();
-    }
+//    public static boolean passApiCheck() {
+//        return ReflectionUtils.passApiCheck();
+//    }
 
     //disable JIT/AOT Profile
     public static boolean tryDisableProfile(String selfPackageName) {

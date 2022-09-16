@@ -29,19 +29,22 @@ public final class DynamicBridge {
     private static final AtomicBoolean dexPathInited = new AtomicBoolean(false);
     private static File dexDir;
 
-    //use internal stubs
+    //use internal stubs  内部定义方法拦截
     private final static Map<Member, HookMethodEntity> entityMap = new HashMap<>();
-    //use dex maker
+    //use dex maker 通过dex maker生成拦截  原方法:调用方法
     private final static HashMap<Member, Method> hookedInfo = new HashMap<>();
 
-    public static synchronized void hookMethod(Member hookMethod, XposedBridge.AdditionalHookInfo additionalHookInfo) {
+    // hook方法、构造入口
+    public static synchronized void hookMethod(Member originMethod, XposedBridge.AdditionalHookInfo additionalHookInfo) {
 
-        if (!checkMember(hookMethod)) {
+        // 检查hook对象，支持构造、方法，不支持抽象类、接口
+        if (!checkMember(originMethod)) {
             return;
         }
 
-        if (hookedInfo.containsKey(hookMethod) || entityMap.containsKey(hookMethod)) {
-            DexLog.w("already hook method:" + hookMethod.toString());
+        // 拦截列表中已经包含,则跳过
+        if (hookedInfo.containsKey(originMethod) || entityMap.containsKey(originMethod)) {
+            DexLog.w("already hook method:" + originMethod.toString());
             return;
         }
 
@@ -60,26 +63,26 @@ public final class DynamicBridge {
             long timeStart = System.currentTimeMillis();
             HookMethodEntity stub = null;
             HookMaker hookMaker = null;
-            if (XposedCompat.useInternalStub && !HookBlackList.canNotHookByStub(hookMethod) && !HookBlackList.canNotHookByBridge(hookMethod)) {
-                stub = HookStubManager.getHookMethodEntity(hookMethod, additionalHookInfo);
+            if (XposedCompat.useInternalStub && !HookBlackList.canNotHookByStub(originMethod) && !HookBlackList.canNotHookByBridge(originMethod)) {
+                stub = HookStubManager.getHookMethodEntity(originMethod, additionalHookInfo);
             }
             if (stub != null) {
-                SandHook.hook(new HookWrapper.HookEntity(hookMethod, stub.hook, stub.backup, false));
-                entityMap.put(hookMethod, stub);
+                SandHook.hook(new HookWrapper.HookEntity(originMethod, stub.hook, stub.backup, false));
+                entityMap.put(originMethod, stub);
             } else {
-                if (HookBlackList.canNotHookByBridge(hookMethod)) {
+                if (HookBlackList.canNotHookByBridge(originMethod)) {
                     hookMaker = new HookerDexMaker();
                 } else {
                     hookMaker = defaultHookMaker;
                 }
-                hookMaker.start(hookMethod, additionalHookInfo,
-                        new ProxyClassLoader(DynamicBridge.class.getClassLoader(), hookMethod.getDeclaringClass().getClassLoader()), dexDir == null ? null : dexDir.getAbsolutePath());
-                hookedInfo.put(hookMethod, hookMaker.getCallBackupMethod());
+                hookMaker.start(originMethod, additionalHookInfo,
+                        new ProxyClassLoader(DynamicBridge.class.getClassLoader(), originMethod.getDeclaringClass().getClassLoader()), dexDir == null ? null : dexDir.getAbsolutePath());
+                hookedInfo.put(originMethod, hookMaker.getCallBackupMethod());
             }
-            DexLog.d("hook method <" + hookMethod + "> cost " + (System.currentTimeMillis() - timeStart) + " ms, by " + (stub != null ? ("internal stub:" + stub.hook) : hookMaker.getClass().getSimpleName()));
+            DexLog.d("hook method <" + originMethod + "> cost " + (System.currentTimeMillis() - timeStart) + " ms, by " + (stub != null ? ("internal stub:" + stub.hook) : hookMaker.getClass().getSimpleName()));
             Trace.endSection();
         } catch (Throwable e) {
-            DexLog.e("error occur when hook method <" + hookMethod.toString() + ">", e);
+            DexLog.e("error occur when hook method <" + originMethod.toString() + ">", e);
         }
     }
 

@@ -23,17 +23,19 @@ public class MainActivity extends Activity {
 
         setContentView(tv);
 
-
         StringBuilder hookTestResult = new StringBuilder();
-        hookTestResult.append("当前安卓版本：").append(Build.VERSION.SDK_INT).append(":").append(Build.VERSION.PREVIEW_SDK_INT).append("\r\n");
-        hookTestResult.append("静态方法Hook：").append(HookPass.getStaticMethodHookResult()).append("\r\n");
-        hookTestResult.append("JNI方法Hook：").append(HookPass.getJniMethodHookResult()).append("\r\n");
-        hookTestResult.append("App实例方法Hook：").append(HookPass.getAppMethodHookResult()).append("\r\n");
-        hookTestResult.append("系统类实例方法Hook：").append(HookPass.getSystemMethodHookResult()).append("\r\n");
-        hookTestResult.append("APP类构造方法Hook：").append(HookPass.getAppConstructorHookResult()).append("\r\n");
-        hookTestResult.append("系统类构造方法Hook：").append(HookPass.getSystemConstructorHookResult()).append("\r\n");
-        hookTestResult.append("实例方法Inline模式Hook：").append(HookPass.getInstanceMethodInlineResult()).append("\r\n");
-        hookTestResult.append("实例方法Replace模式Hook：").append(HookPass.getInstanceMethodReplaceResult()).append("\r\n");
+        hookTestResult.append("当前安卓版本：").append(Build.VERSION.SDK_INT).append(":").append(Build.VERSION.PREVIEW_SDK_INT);
+        if (MyApp.DEBUG_ALL) {
+            hookTestResult.append("\r\n静态方法Hook：").append(HookPass.getStaticMethodHookResult())
+                    .append("\r\nJNI方法Hook：").append(HookPass.getJniMethodHookResult())
+                    .append("\r\nApp实例方法Hook：").append(HookPass.getAppMethodHookResult())
+                    .append("\r\n系统类实例方法Hook：").append(HookPass.getSystemMethodHookResult())
+                    .append("\r\nAPP类构造方法Hook：").append(HookPass.getAppConstructorHookResult())
+                    .append("\r\n系统类构造方法Hook：").append(HookPass.getSystemConstructorHookResult())
+                    .append("\r\n实例方法Inline模式Hook：").append(HookPass.getInstanceMethodInlineResult())
+                    .append("\r\n实例方法Replace模式Hook：").append(HookPass.getInstanceMethodReplaceResult());
+        }
+
         tv.setText(hookTestResult);
     }
 
