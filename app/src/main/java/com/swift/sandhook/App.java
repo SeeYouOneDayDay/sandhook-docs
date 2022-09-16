@@ -30,7 +30,7 @@ public class App extends Application {
     public volatile static boolean initedTest = false;
 
     // 测试所有的选项
-    public volatile static boolean DEBUG_ALL = false;
+    public volatile static boolean DEBUG_ALL = true;
 
     @Override
     public void onCreate() {
@@ -70,7 +70,7 @@ public class App extends Application {
             XposedCompat.context = this;
             XposedCompat.classLoader = getClassLoader();
             XposedCompat.isFirstApplication = true;
-            XposedCompat.useInternalStub = false;
+            XposedCompat.useInternalStub = true;
 
             if (DEBUG_ALL) {
                 HookPass.init();
