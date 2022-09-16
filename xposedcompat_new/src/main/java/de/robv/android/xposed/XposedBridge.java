@@ -39,7 +39,7 @@ public final class XposedBridge {
     public static final ClassLoader BOOTCLASSLOADER = XposedBridge.class.getClassLoader();
 
     /** @hide */
-    public static final String TAG = "SandXposed";
+    public static final String TAG = "sanbo.SandXposed.new";
 
     /** @deprecated Use {@link #getXposedVersion()} instead. */
     @Deprecated
@@ -267,7 +267,6 @@ public final class XposedBridge {
      */
     private synchronized static void hookMethod(Member method, AdditionalHookInfo additionalInfoObj) {
         XposedCompat.hookMethod(method, additionalInfoObj);
-
     }
 
 

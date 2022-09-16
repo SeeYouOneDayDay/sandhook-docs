@@ -63,18 +63,37 @@ public final class DynamicBridge {
             long timeStart = System.currentTimeMillis();
             HookMethodEntity stub = null;
             HookMaker hookMaker = null;
+            DexLog.d(
+                    "gello\r\n================================================================================================"
+                            + "\r\n=========com.swift.sandhook.xposedcompat.methodgen.DynamicBridge.hookMethod====================="
+                            + "\r\n================================================================================================"
+                            + "\r\noriginMethod:" + originMethod
+                            + "\r\nuseInternalStub:" + XposedCompat.useInternalStub
+                            + "\r\ncanNotHookByStub:" + HookBlackList.canNotHookByStub(originMethod)
+                            + "\r\ncanNotHookByBridge:" + HookBlackList.canNotHookByBridge(originMethod)
+            );
+            //这里可以直接拦截。  useInternalStub变量控制
             if (XposedCompat.useInternalStub && !HookBlackList.canNotHookByStub(originMethod) && !HookBlackList.canNotHookByBridge(originMethod)) {
+
+                //通过内部 stubs系列方法来拦截，尝试获取
                 stub = HookStubManager.getHookMethodEntity(originMethod, additionalHookInfo);
             }
+            DexLog.d("stub 获取完毕: " + stub);
             if (stub != null) {
+                //内部 stubs方式拦截成功，进行方法绑定替换等操作
                 SandHook.hook(new HookWrapper.HookEntity(originMethod, stub.hook, stub.backup, false));
                 entityMap.put(originMethod, stub);
             } else {
+                DexLog.i("内部stubs方式拦截失败，需要dexmaker方式生成新方法!");
+                //内部stubs方式拦截失败，需要dexmaker方式生成新方法
                 if (HookBlackList.canNotHookByBridge(originMethod)) {
+                    DexLog.d("即将开始 new HookerDexMaker");
                     hookMaker = new HookerDexMaker();
                 } else {
+                    DexLog.d("即将开始 defaultHookMaker:"+defaultHookMaker);
                     hookMaker = defaultHookMaker;
                 }
+                DexLog.d("即将开始start. 对象hookMaker:"+hookMaker);
                 hookMaker.start(originMethod, additionalHookInfo,
                         new ProxyClassLoader(DynamicBridge.class.getClassLoader(), originMethod.getDeclaringClass().getClassLoader()), dexDir == null ? null : dexDir.getAbsolutePath());
                 hookedInfo.put(originMethod, hookMaker.getCallBackupMethod());

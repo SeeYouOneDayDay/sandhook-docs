@@ -1,17 +1,12 @@
-package com.swift.sandhook.xposedcompat.utils;
+package com.swift.sandhook;
 
 import android.util.Log;
 
-import com.swift.sandhook.HookLog;
-
 import java.lang.reflect.Member;
 
+public class DLog {
+    public static final String TAG = "sanbo.s.DLog";
 
-public class DexLog {
-
-    public static final String TAG = "sanbo.Xposed.DexLog";
-
-    public static boolean DEBUG = HookLog.DEBUG;
 
     public static int v(String s) {
         return Log.v(TAG, s);
@@ -26,7 +21,7 @@ public class DexLog {
     }
 
     public static void printMethodHookIn(Member member) {
-        if (DEBUG && member != null) {
+        if (member != null) {
             Log.d(TAG, "method <" + member.toString() + "> hook in");
         }
     }
@@ -48,6 +43,5 @@ public class DexLog {
     public static int e(String s, Throwable t) {
         return Log.e(TAG, s, t);
     }
-
 
 }

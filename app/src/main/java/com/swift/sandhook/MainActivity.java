@@ -24,8 +24,9 @@ public class MainActivity extends Activity {
         setContentView(tv);
 
         StringBuilder hookTestResult = new StringBuilder();
-        hookTestResult.append("当前安卓版本：").append(Build.VERSION.SDK_INT).append(":").append(Build.VERSION.PREVIEW_SDK_INT);
-        if (MyApp.DEBUG_ALL) {
+        hookTestResult.append("ApplicationId：").append(BuildConfig.APPLICATION_ID).append(":").append(Build.VERSION.PREVIEW_SDK_INT);
+        hookTestResult.append("\r\n当前安卓版本：").append(Build.VERSION.SDK_INT).append(":").append(Build.VERSION.PREVIEW_SDK_INT);
+        if (App.DEBUG_ALL) {
             hookTestResult.append("\r\n静态方法Hook：").append(HookPass.getStaticMethodHookResult())
                     .append("\r\nJNI方法Hook：").append(HookPass.getJniMethodHookResult())
                     .append("\r\nApp实例方法Hook：").append(HookPass.getAppMethodHookResult())

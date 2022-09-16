@@ -4,6 +4,7 @@ import android.app.Application;
 import android.os.Build;
 import android.util.Log;
 
+import com.swift.sandhook.test.XTt;
 import com.swift.sandhook.testHookers.ActivityHooker;
 import com.swift.sandhook.testHookers.CtrHook;
 import com.swift.sandhook.testHookers.LogHooker;
@@ -12,7 +13,10 @@ import com.swift.sandhook.xposedcompat.XposedCompat;
 
 import org.lsposed.hiddenapibypass.HiddenApiBypass;
 
-public class MyApp extends Application {
+import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XposedHelpers;
+
+public class App extends Application {
 
     static {
         try {
@@ -66,15 +70,37 @@ public class MyApp extends Application {
             XposedCompat.context = this;
             XposedCompat.classLoader = getClassLoader();
             XposedCompat.isFirstApplication = true;
-            XposedCompat.useInternalStub = true;
+            XposedCompat.useInternalStub = false;
 
             if (DEBUG_ALL) {
                 HookPass.init();
+            } else {
+                customTest();
             }
 
         } catch (Throwable e) {
             Log.e("SandHook", "init sandhook test error:", e);
         }
+    }
+
+    private void customTest() {
+        //testStaticValueForTest(String a1, int i2, Class<?> c3) {
+        XposedHelpers.findAndHookMethod(XTt.class, "testStaticValueForTest"
+                , String.class, int.class, Class.class
+                , new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                super.beforeHookedMethod(param);
+                Log.e(LogTags.HOOK_IN, "testStaticValueForTest beforeHookedMethod: " + param.method.getName());
+            }
+
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        super.afterHookedMethod(param);
+                        param.setResult("afterHookedMethod 修改 testStaticValueForTest");
+                    }
+                });
+
     }
 
     public static int getPreviewSDKInt() {

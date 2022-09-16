@@ -78,10 +78,10 @@ public final class HiddenApiBypass {
                 long bAddr = Unsafe.getLong(mhB, artOffset);
                 long aMethods = Unsafe.getLong(Helper.NeverCall.class, methodsOffset);
                 artMethodSize = bAddr - aAddr;
-                if (BuildConfig.DEBUG) Log.v(TAG, artMethodSize + " " +
-                        Long.toString(aAddr, 16) + ", " +
-                        Long.toString(bAddr, 16) + ", " +
-                        Long.toString(aMethods, 16));
+//                if (BuildConfig.DEBUG) Log.v(TAG, artMethodSize + " " +
+//                        Long.toString(aAddr, 16) + ", " +
+//                        Long.toString(bAddr, 16) + ", " +
+//                        Long.toString(aMethods, 16));
                 artMethodBias = aAddr - aMethods - artMethodSize;
                 Field fI = Helper.NeverCall.class.getDeclaredField("i");
                 Field fJ = Helper.NeverCall.class.getDeclaredField("j");
@@ -93,10 +93,10 @@ public final class HiddenApiBypass {
                 long jAddr = Unsafe.getLong(mhJ, artOffset);
                 long iFields = Unsafe.getLong(Helper.NeverCall.class, iFieldOffset);
                 artFieldSize = jAddr - iAddr;
-                if (BuildConfig.DEBUG) Log.v(TAG, artFieldSize + " " +
-                        Long.toString(iAddr, 16) + ", " +
-                        Long.toString(jAddr, 16) + ", " +
-                        Long.toString(iFields, 16));
+//                if (BuildConfig.DEBUG) Log.v(TAG, artFieldSize + " " +
+//                        Long.toString(iAddr, 16) + ", " +
+//                        Long.toString(jAddr, 16) + ", " +
+//                        Long.toString(iFields, 16));
                 artFieldBias = iAddr - iFields;
             } catch (ReflectiveOperationException e) {
                 Log.e(TAG, "Initialize error", e);
@@ -174,7 +174,7 @@ public final class HiddenApiBypass {
         long methods = Unsafe.getLong(clazz, methodsOffset);
         if (methods == 0) throw new NoSuchMethodException("Cannot find matching method");
         int numMethods = Unsafe.getInt(methods);
-        if (BuildConfig.DEBUG) Log.d(TAG, clazz + " has " + numMethods + " methods");
+//        if (BuildConfig.DEBUG) Log.d(TAG, clazz + " has " + numMethods + " methods");
         for (int i = 0; i < numMethods; i++) {
             long method = methods + i * artMethodSize + artMethodBias;
             Unsafe.putLong(stub, methodOffset, method);

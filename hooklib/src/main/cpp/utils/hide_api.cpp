@@ -55,13 +55,13 @@ extern "C" {
 
     bool (*origin_ShouldUseInterpreterEntrypoint)(ArtMethod *artMethod, const void* quick_code) = nullptr;
     bool replace_ShouldUseInterpreterEntrypoint(ArtMethod *artMethod, const void* quick_code) {
-        LOGD("ShouldUseInterpreterEntrypoint!!!!!!!!!");
+//        LOGD("ShouldUseInterpreterEntrypoint!!!!!!!!!");
         if ((SandHook::TrampolineManager::get().methodHooked(artMethod) || isPending(artMethod)) && quick_code != nullptr) {
-            LOGD("No ShouldUseInterpreterEntrypoint: %s",prettyMethod(artMethod, true).c_str());
+//            LOGD("No ShouldUseInterpreterEntrypoint: %s",prettyMethod(artMethod, true).c_str());
             return false;
         }
         bool shouldUse = origin_ShouldUseInterpreterEntrypoint(artMethod, quick_code);
-        LOGD("ShouldUseInterpreterEntrypoint: %s,result:%d", prettyMethod(artMethod, true).c_str(),shouldUse);
+//        LOGD("ShouldUseInterpreterEntrypoint: %s,result:%d", prettyMethod(artMethod, true).c_str(),shouldUse);
         return shouldUse;
     }
 

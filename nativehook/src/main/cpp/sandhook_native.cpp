@@ -63,6 +63,8 @@ EXPORT bool SandSingleInstBreakPoint(void *origin, BreakCallback(callback)) {
     return InlineHook::instance->SingleBreakPoint(origin, callback);
 }
 
+
+
 #if defined(__aarch64__)
 
 fpsimd_context* GetSimdContext(sigcontext *mcontext) {
@@ -84,3 +86,9 @@ fpsimd_context* GetSimdContext(sigcontext *mcontext) {
 }
 
 #endif
+
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_swift_sandhook_nativehook_NativeHook_test(JNIEnv *env, jclass clazz) {
+}
