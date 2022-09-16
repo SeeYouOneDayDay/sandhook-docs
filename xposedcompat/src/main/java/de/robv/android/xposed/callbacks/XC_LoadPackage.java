@@ -2,7 +2,6 @@ package de.robv.android.xposed.callbacks;
 
 import android.content.pm.ApplicationInfo;
 
-import com.swift.sandhook.xposedcompat.utils.ProcessUtils;
 import com.swift.sandhook.xposedcompat.XposedCompat;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;

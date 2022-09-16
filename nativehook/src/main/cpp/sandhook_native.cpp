@@ -12,8 +12,6 @@
 using namespace SandHook::Hook;
 using namespace SandHook::Elf;
 
-
-
 extern "C"
 EXPORT void* SandGetModuleBase(const char* so) {
     return ElfImg::GetModuleBase(so);

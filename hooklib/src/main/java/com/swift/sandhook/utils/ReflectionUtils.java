@@ -49,6 +49,6 @@ public class ReflectionUtils {
 
     //methidSigs like Lcom/swift/sandhook/utils/ReflectionUtils;->vmRuntime:java/lang/Object; (from hidden policy list)
     public static void addReflectionWhiteList(String... memberSigs) throws Throwable {
-        addWhiteListMethod.invoke(vmRuntime, new Object[] {memberSigs});
+        addWhiteListMethod.invoke(vmRuntime, new Object[]{memberSigs});
     }
 }

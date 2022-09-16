@@ -20,7 +20,12 @@ import com.android.dx.rop.annotation.Annotation;
 import com.android.dx.rop.annotation.AnnotationVisibility;
 import com.android.dx.rop.annotation.Annotations;
 import com.android.dx.rop.annotation.NameValuePair;
-import com.android.dx.rop.cst.*;
+import com.android.dx.rop.cst.Constant;
+import com.android.dx.rop.cst.CstEnumRef;
+import com.android.dx.rop.cst.CstMethodRef;
+import com.android.dx.rop.cst.CstNat;
+import com.android.dx.rop.cst.CstString;
+import com.android.dx.rop.cst.CstType;
 
 import java.lang.annotation.ElementType;
 import java.util.HashMap;

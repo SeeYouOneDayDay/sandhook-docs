@@ -51,7 +51,7 @@ public final class XposedInit {
      * Load a module from an APK by calling the init(String) method for all classes defined
      * in <code>assets/xposed_init</code>.
      */
-    public static void loadModule(String modulePath, String moduleOdexDir, String moduleSoPath,ClassLoader topClassLoader) {
+    public static void loadModule(String modulePath, String moduleOdexDir, String moduleSoPath, ClassLoader topClassLoader) {
 
         if (!new File(modulePath).exists()) {
             Log.e(TAG, "  File does not exist");

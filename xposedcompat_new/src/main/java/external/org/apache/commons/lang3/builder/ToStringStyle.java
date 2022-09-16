@@ -134,7 +134,7 @@ public abstract class ToStringStyle implements Serializable {
      * </p>
      */
     private static final ThreadLocal<WeakHashMap<Object, Object>> REGISTRY =
-        new ThreadLocal<WeakHashMap<Object,Object>>();
+            new ThreadLocal<WeakHashMap<Object, Object>>();
 
     /**
      * <p>
@@ -460,9 +460,9 @@ public abstract class ToStringStyle implements Serializable {
      */
     protected void appendInternal(StringBuffer buffer, String fieldName, Object value, boolean detail) {
         if (isRegistered(value)
-            && !(value instanceof Number || value instanceof Boolean || value instanceof Character)) {
-           appendCyclicObject(buffer, fieldName, value);
-           return;
+                && !(value instanceof Number || value instanceof Boolean || value instanceof Character)) {
+            appendCyclicObject(buffer, fieldName, value);
+            return;
         }
 
         register(value);
@@ -570,7 +570,7 @@ public abstract class ToStringStyle implements Serializable {
      * @since 2.2
      */
     protected void appendCyclicObject(StringBuffer buffer, String fieldName, Object value) {
-       ObjectUtils.identityToString(buffer, value);
+        ObjectUtils.identityToString(buffer, value);
     }
 
     /**
@@ -1457,7 +1457,7 @@ public abstract class ToStringStyle implements Serializable {
      * @param object  the <code>Object</code> whose id to output
      */
     protected void appendIdentityHashCode(StringBuffer buffer, Object object) {
-        if (this.isUseIdentityHashCode() && object!=null) {
+        if (this.isUseIdentityHashCode() && object != null) {
             register(object);
             buffer.append('@');
             buffer.append(Integer.toHexString(System.identityHashCode(object)));

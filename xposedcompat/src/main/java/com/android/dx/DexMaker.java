@@ -16,6 +16,10 @@
 
 package com.android.dx;
 
+import static com.android.dx.rop.code.AccessFlags.ACC_CONSTRUCTOR;
+import static java.lang.reflect.Modifier.PRIVATE;
+import static java.lang.reflect.Modifier.STATIC;
+
 import com.android.dex.DexFormat;
 import com.android.dx.dex.DexOptions;
 import com.android.dx.dex.code.DalvCode;
@@ -44,10 +48,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
-
-import static com.android.dx.rop.code.AccessFlags.ACC_CONSTRUCTOR;
-import static java.lang.reflect.Modifier.PRIVATE;
-import static java.lang.reflect.Modifier.STATIC;
 
 /**
  * Generates a <strong>D</strong>alvik <strong>EX</strong>ecutable (dex)

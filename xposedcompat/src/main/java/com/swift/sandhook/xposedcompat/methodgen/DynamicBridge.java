@@ -1,7 +1,6 @@
 package com.swift.sandhook.xposedcompat.methodgen;
 
 import android.os.Trace;
-import android.util.Log;
 
 import com.swift.sandhook.SandHook;
 import com.swift.sandhook.blacklist.HookBlackList;

@@ -140,6 +140,7 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     //----------------------------------------------------------------------------
+
     /**
      * <p>Uses <code>ReflectionToStringBuilder</code> to generate a
      * <code>toString</code> for the specified object.</p>
@@ -159,7 +160,7 @@ public class ToStringBuilder implements Builder<String> {
      * @param object  the Object to be output
      * @param style  the style of the <code>toString</code> to create, may be <code>null</code>
      * @return the String result
-     * @see ReflectionToStringBuilder#toString(Object,ToStringStyle)
+     * @see ReflectionToStringBuilder#toString(Object, ToStringStyle)
      */
     public static String reflectionToString(Object object, ToStringStyle style) {
         return ReflectionToStringBuilder.toString(object, style);
@@ -173,7 +174,7 @@ public class ToStringBuilder implements Builder<String> {
      * @param style  the style of the <code>toString</code> to create, may be <code>null</code>
      * @param outputTransients  whether to include transient fields
      * @return the String result
-     * @see ReflectionToStringBuilder#toString(Object,ToStringStyle,boolean)
+     * @see ReflectionToStringBuilder#toString(Object, ToStringStyle, boolean)
      */
     public static String reflectionToString(Object object, ToStringStyle style, boolean outputTransients) {
         return ReflectionToStringBuilder.toString(object, style, outputTransients, false, null);
@@ -189,14 +190,14 @@ public class ToStringBuilder implements Builder<String> {
      * @param outputTransients  whether to include transient fields
      * @param reflectUpToClass  the superclass to reflect up to (inclusive), may be <code>null</code>
      * @return the String result
-     * @see ReflectionToStringBuilder#toString(Object,ToStringStyle,boolean,boolean,Class)
+     * @see ReflectionToStringBuilder#toString(Object, ToStringStyle, boolean, boolean, Class)
      * @since 2.0
      */
     public static <T> String reflectionToString(
-        T object,
-        ToStringStyle style,
-        boolean outputTransients,
-        Class<? super T> reflectUpToClass) {
+            T object,
+            ToStringStyle style,
+            boolean outputTransients,
+            Class<? super T> reflectUpToClass) {
         return ReflectionToStringBuilder.toString(object, style, outputTransients, false, reflectUpToClass);
     }
 

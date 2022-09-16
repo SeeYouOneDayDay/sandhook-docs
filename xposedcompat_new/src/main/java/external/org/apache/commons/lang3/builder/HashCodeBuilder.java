@@ -179,9 +179,9 @@ public class HashCodeBuilder implements Builder<Integer> {
             AccessibleObject.setAccessible(fields, true);
             for (Field field : fields) {
                 if (!ArrayUtils.contains(excludeFields, field.getName())
-                    && (field.getName().indexOf('$') == -1)
-                    && (useTransients || !Modifier.isTransient(field.getModifiers()))
-                    && (!Modifier.isStatic(field.getModifiers()))) {
+                        && (field.getName().indexOf('$') == -1)
+                        && (useTransients || !Modifier.isTransient(field.getModifiers()))
+                        && (!Modifier.isStatic(field.getModifiers()))) {
                     try {
                         Object fieldValue = field.get(object);
                         builder.append(fieldValue);
@@ -278,7 +278,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *             if the number is zero or even
      */
     public static int reflectionHashCode(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber, Object object,
-            boolean testTransients) {
+                                         boolean testTransients) {
         return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object, testTransients, null);
     }
 
@@ -330,7 +330,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @since 2.0
      */
     public static <T> int reflectionHashCode(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber, T object,
-            boolean testTransients, Class<? super T> reflectUpToClass, String... excludeFields) {
+                                             boolean testTransients, Class<? super T> reflectUpToClass, String... excludeFields) {
 
         if (object == null) {
             throw new IllegalArgumentException("The object to build a hash code for must not be null");
@@ -823,7 +823,7 @@ public class HashCodeBuilder implements Builder<Integer> {
             iTotal = iTotal * iConstant;
 
         } else {
-            if(object.getClass().isArray()) {
+            if (object.getClass().isArray()) {
                 // 'Switch' on type of array, to dispatch to the correct handler
                 // This handles multi dimensional arrays
                 if (object instanceof long[]) {

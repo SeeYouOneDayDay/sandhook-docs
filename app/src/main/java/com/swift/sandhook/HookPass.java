@@ -51,7 +51,7 @@ public class HookPass {
             }
         });
 
-        XposedHelpers.findAndHookMethod(TestClass.class, "testStub", int.class,new XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(TestClass.class, "testStub", int.class, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 super.beforeHookedMethod(param);
@@ -131,11 +131,11 @@ public class HookPass {
         return new Random().nextInt() == 1;
     }
 
-    public static boolean getAppConstructorHookResult(){
+    public static boolean getAppConstructorHookResult() {
         return isAppConstructorHooked;
     }
 
-    public static boolean getSystemConstructorHookResult(){
+    public static boolean getSystemConstructorHookResult() {
         return isSystemConstructorHooked;
     }
 

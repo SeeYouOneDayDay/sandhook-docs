@@ -45,7 +45,7 @@ public class PendingHookHandler {
         Vector<HookWrapper.HookEntity> entities = pendingHooks.get(clazz);
         if (entities == null)
             return;
-        for (HookWrapper.HookEntity entity:entities) {
+        for (HookWrapper.HookEntity entity : entities) {
             HookLog.w("do pending hook for method: " + entity.target.toString());
             try {
                 entity.initClass = false;

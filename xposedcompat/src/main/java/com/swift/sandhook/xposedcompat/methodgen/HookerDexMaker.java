@@ -1,5 +1,11 @@
 package com.swift.sandhook.xposedcompat.methodgen;
 
+import static com.swift.sandhook.xposedcompat.utils.DexMakerUtils.MD5;
+import static com.swift.sandhook.xposedcompat.utils.DexMakerUtils.autoBoxIfNecessary;
+import static com.swift.sandhook.xposedcompat.utils.DexMakerUtils.autoUnboxIfNecessary;
+import static com.swift.sandhook.xposedcompat.utils.DexMakerUtils.createResultLocals;
+import static com.swift.sandhook.xposedcompat.utils.DexMakerUtils.getObjTypeIdIfPrimitive;
+
 import android.os.Build;
 import android.text.TextUtils;
 
@@ -31,12 +37,6 @@ import java.util.Map;
 import dalvik.system.InMemoryDexClassLoader;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
-
-import static com.swift.sandhook.xposedcompat.utils.DexMakerUtils.MD5;
-import static com.swift.sandhook.xposedcompat.utils.DexMakerUtils.autoBoxIfNecessary;
-import static com.swift.sandhook.xposedcompat.utils.DexMakerUtils.autoUnboxIfNecessary;
-import static com.swift.sandhook.xposedcompat.utils.DexMakerUtils.createResultLocals;
-import static com.swift.sandhook.xposedcompat.utils.DexMakerUtils.getObjTypeIdIfPrimitive;
 
 public class HookerDexMaker implements HookMaker {
 

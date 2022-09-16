@@ -1,12 +1,12 @@
 package com.swift.sandhook;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Member;
-import java.lang.reflect.Method;
-
 import static com.swift.sandhook.SandHook.artMethodClass;
 import static com.swift.sandhook.SandHook.getField;
 import static com.swift.sandhook.SandHook.hasJavaArtMethod;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Member;
+import java.lang.reflect.Method;
 
 public class SandHookMethodResolver {
 
@@ -144,16 +144,16 @@ public class SandHookMethodResolver {
             Object artMethod = artMethodField.get(backup);
             int dexMethodIndex = (int) dexMethodIndexField.get(artMethod);
             Object resolvedMethods = resolvedMethodsField.get(dexCache);
-            ((Object[])resolvedMethods)[dexMethodIndex] = artMethod;
+            ((Object[]) resolvedMethods)[dexMethodIndex] = artMethod;
         } else {
             int dexMethodIndex = (int) dexMethodIndexField.get(backup);
             Object resolvedMethods = resolvedMethodsField.get(dexCache);
             if (resolvedMethods instanceof long[]) {
                 long artMethod = (long) artMethodField.get(backup);
-                ((long[])resolvedMethods)[dexMethodIndex] = artMethod;
+                ((long[]) resolvedMethods)[dexMethodIndex] = artMethod;
             } else if (resolvedMethods instanceof int[]) {
-                int artMethod = Long.valueOf((long)artMethodField.get(backup)).intValue();
-                ((int[])resolvedMethods)[dexMethodIndex] = artMethod;
+                int artMethod = Long.valueOf((long) artMethodField.get(backup)).intValue();
+                ((int[]) resolvedMethods)[dexMethodIndex] = artMethod;
             } else {
                 throw new UnsupportedOperationException("un support");
             }

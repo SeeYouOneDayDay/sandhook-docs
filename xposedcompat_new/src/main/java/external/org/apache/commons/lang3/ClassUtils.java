@@ -66,22 +66,24 @@ public class ClassUtils {
      * Maps primitive {@code Class}es to their corresponding wrapper {@code Class}.
      */
     private static final Map<Class<?>, Class<?>> primitiveWrapperMap = new HashMap<Class<?>, Class<?>>();
+
     static {
-         primitiveWrapperMap.put(Boolean.TYPE, Boolean.class);
-         primitiveWrapperMap.put(Byte.TYPE, Byte.class);
-         primitiveWrapperMap.put(Character.TYPE, Character.class);
-         primitiveWrapperMap.put(Short.TYPE, Short.class);
-         primitiveWrapperMap.put(Integer.TYPE, Integer.class);
-         primitiveWrapperMap.put(Long.TYPE, Long.class);
-         primitiveWrapperMap.put(Double.TYPE, Double.class);
-         primitiveWrapperMap.put(Float.TYPE, Float.class);
-         primitiveWrapperMap.put(Void.TYPE, Void.TYPE);
+        primitiveWrapperMap.put(Boolean.TYPE, Boolean.class);
+        primitiveWrapperMap.put(Byte.TYPE, Byte.class);
+        primitiveWrapperMap.put(Character.TYPE, Character.class);
+        primitiveWrapperMap.put(Short.TYPE, Short.class);
+        primitiveWrapperMap.put(Integer.TYPE, Integer.class);
+        primitiveWrapperMap.put(Long.TYPE, Long.class);
+        primitiveWrapperMap.put(Double.TYPE, Double.class);
+        primitiveWrapperMap.put(Float.TYPE, Float.class);
+        primitiveWrapperMap.put(Void.TYPE, Void.TYPE);
     }
 
     /**
      * Maps wrapper {@code Class}es to their corresponding primitive types.
      */
     private static final Map<Class<?>, Class<?>> wrapperPrimitiveMap = new HashMap<Class<?>, Class<?>>();
+
     static {
         for (Class<?> primitiveClass : primitiveWrapperMap.keySet()) {
             Class<?> wrapperClass = primitiveWrapperMap.get(primitiveClass);
@@ -135,11 +137,12 @@ public class ClassUtils {
      * instance to operate.</p>
      */
     public ClassUtils() {
-      super();
+        super();
     }
 
     // Short class name
     // ----------------------------------------------------------------------
+
     /**
      * <p>Gets the class name minus the package name for an {@code Object}.</p>
      *
@@ -156,7 +159,7 @@ public class ClassUtils {
 
     /**
      * <p>Gets the class name minus the package name from a {@code Class}.</p>
-     * 
+     *
      * <p>Consider using the Java 5 API {@link Class#getSimpleName()} instead. 
      * The one known difference is that this code will return {@code "Map.Entry"} while 
      * the {@code java.lang.Class} variant will simply return {@code "Entry"}. </p>
@@ -175,8 +178,7 @@ public class ClassUtils {
      * <p>Gets the class name minus the package name from a String.</p>
      *
      * <p>The string passed in is assumed to be a class name - it is not checked.</p>
-
-     * <p>Note that this method differs from Class.getSimpleName() in that this will 
+     * <p>Note that this method differs from Class.getSimpleName() in that this will
      * return {@code "Map.Entry"} whilst the {@code java.lang.Class} variant will simply 
      * return {@code "Entry"}. </p>
      *
@@ -252,6 +254,7 @@ public class ClassUtils {
 
     // Package name
     // ----------------------------------------------------------------------
+
     /**
      * <p>Gets the package name of an {@code Object}.</p>
      *
@@ -311,6 +314,7 @@ public class ClassUtils {
 
     // Superclasses/Superinterfaces
     // ----------------------------------------------------------------------
+
     /**
      * <p>Gets a {@code List} of superclasses for the given class.</p>
      *
@@ -372,11 +376,12 @@ public class ClassUtils {
             }
 
             cls = cls.getSuperclass();
-         }
-     }
+        }
+    }
 
     // Convert list
     // ----------------------------------------------------------------------
+
     /**
      * <p>Given a {@code List} of class names, this method converts them into classes.</p>
      *
@@ -433,6 +438,7 @@ public class ClassUtils {
 
     // Is assignable
     // ----------------------------------------------------------------------
+
     /**
      * <p>Checks if an array of Classes can be assigned to another array of Classes.</p>
      *
@@ -648,12 +654,12 @@ public class ClassUtils {
             }
             if (Integer.TYPE.equals(cls)) {
                 return Long.TYPE.equals(toClass)
-                    || Float.TYPE.equals(toClass)
-                    || Double.TYPE.equals(toClass);
+                        || Float.TYPE.equals(toClass)
+                        || Double.TYPE.equals(toClass);
             }
             if (Long.TYPE.equals(cls)) {
                 return Float.TYPE.equals(toClass)
-                    || Double.TYPE.equals(toClass);
+                        || Double.TYPE.equals(toClass);
             }
             if (Boolean.TYPE.equals(cls)) {
                 return false;
@@ -666,22 +672,22 @@ public class ClassUtils {
             }
             if (Character.TYPE.equals(cls)) {
                 return Integer.TYPE.equals(toClass)
-                    || Long.TYPE.equals(toClass)
-                    || Float.TYPE.equals(toClass)
-                    || Double.TYPE.equals(toClass);
+                        || Long.TYPE.equals(toClass)
+                        || Float.TYPE.equals(toClass)
+                        || Double.TYPE.equals(toClass);
             }
             if (Short.TYPE.equals(cls)) {
                 return Integer.TYPE.equals(toClass)
-                    || Long.TYPE.equals(toClass)
-                    || Float.TYPE.equals(toClass)
-                    || Double.TYPE.equals(toClass);
+                        || Long.TYPE.equals(toClass)
+                        || Float.TYPE.equals(toClass)
+                        || Double.TYPE.equals(toClass);
             }
             if (Byte.TYPE.equals(cls)) {
                 return Short.TYPE.equals(toClass)
-                    || Integer.TYPE.equals(toClass)
-                    || Long.TYPE.equals(toClass)
-                    || Float.TYPE.equals(toClass)
-                    || Double.TYPE.equals(toClass);
+                        || Integer.TYPE.equals(toClass)
+                        || Long.TYPE.equals(toClass)
+                        || Float.TYPE.equals(toClass)
+                        || Double.TYPE.equals(toClass);
             }
             // should never get here
             return false;
@@ -787,6 +793,7 @@ public class ClassUtils {
 
     // Inner class
     // ----------------------------------------------------------------------
+
     /**
      * <p>Is the specified class an inner class or static nested class.</p>
      *
@@ -800,6 +807,7 @@ public class ClassUtils {
 
     // Class loading
     // ----------------------------------------------------------------------
+
     /**
      * Returns the class represented by {@code className} using the
      * {@code classLoader}.  This implementation supports the syntaxes
@@ -830,7 +838,7 @@ public class ClassUtils {
             if (lastDotIndex != -1) {
                 try {
                     return getClass(classLoader, className.substring(0, lastDotIndex) +
-                            INNER_CLASS_SEPARATOR_CHAR + className.substring(lastDotIndex + 1),
+                                    INNER_CLASS_SEPARATOR_CHAR + className.substring(lastDotIndex + 1),
                             initialize);
                 } catch (ClassNotFoundException ex2) { // NOPMD
                     // ignore exception
@@ -891,6 +899,7 @@ public class ClassUtils {
 
     // Public method
     // ----------------------------------------------------------------------
+
     /**
      * <p>Returns the desired Method much like {@code Class.getMethod}, however
      * it ensures that the returned Method is from a public class or interface and not
@@ -944,6 +953,7 @@ public class ClassUtils {
     }
 
     // ----------------------------------------------------------------------
+
     /**
      * Converts a class name to a JLS style class name.
      *
@@ -996,6 +1006,7 @@ public class ClassUtils {
 
     // Short canonical name
     // ----------------------------------------------------------------------
+
     /**
      * <p>Gets the canonical name minus the package name for an {@code Object}.</p>
      *
@@ -1040,6 +1051,7 @@ public class ClassUtils {
 
     // Package name
     // ----------------------------------------------------------------------
+
     /**
      * <p>Gets the package name from the canonical name of an {@code Object}.</p>
      *
@@ -1114,10 +1126,10 @@ public class ClassUtils {
             } else {
                 if (className.startsWith("L")) {
                     className = className.substring(
-                        1,
-                        className.endsWith(";")
-                            ? className.length() - 1
-                            : className.length());
+                            1,
+                            className.endsWith(";")
+                                    ? className.length() - 1
+                                    : className.length());
                 } else {
                     if (className.length() > 0) {
                         className = reverseAbbreviationMap.get(className.substring(0, 1));

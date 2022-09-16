@@ -190,7 +190,7 @@ public class XposedCompat {
     }
 
 
-    public static void loadModule(String modulePath, String moduleOdexDir, String moduleSoPath,ClassLoader classLoader) {
+    public static void loadModule(String modulePath, String moduleOdexDir, String moduleSoPath, ClassLoader classLoader) {
         XposedInit.loadModule(modulePath, moduleOdexDir, moduleSoPath, classLoader);
     }
 

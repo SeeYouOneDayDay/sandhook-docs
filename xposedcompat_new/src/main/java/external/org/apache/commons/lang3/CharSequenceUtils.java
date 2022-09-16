@@ -38,6 +38,7 @@ public class CharSequenceUtils {
     }
 
     //-----------------------------------------------------------------------
+
     /**
      * <p>Returns a new {@code CharSequence} that is a subsequence of this
      * sequence starting with the {@code char} value at the specified index.</p>
@@ -57,6 +58,7 @@ public class CharSequenceUtils {
     }
 
     //-----------------------------------------------------------------------
+
     /**
      * <p>Finds the first index in the {@code CharSequence} that matches the
      * specified character.</p>
@@ -185,7 +187,7 @@ public class CharSequenceUtils {
      * @return whether the region matched
      */
     static boolean regionMatches(CharSequence cs, boolean ignoreCase, int thisStart,
-            CharSequence substring, int start, int length)    {
+                                 CharSequence substring, int start, int length) {
         if (cs instanceof String && substring instanceof String) {
             return ((String) cs).regionMatches(ignoreCase, thisStart, (String) substring, start, length);
         } else {

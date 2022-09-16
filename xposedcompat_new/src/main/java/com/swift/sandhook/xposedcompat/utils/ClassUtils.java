@@ -62,22 +62,24 @@ public class ClassUtils {
      * Maps primitive {@code Class}es to their corresponding wrapper {@code Class}.
      */
     private static final Map<Class<?>, Class<?>> primitiveWrapperMap = new HashMap<Class<?>, Class<?>>();
+
     static {
-         primitiveWrapperMap.put(Boolean.TYPE, Boolean.class);
-         primitiveWrapperMap.put(Byte.TYPE, Byte.class);
-         primitiveWrapperMap.put(Character.TYPE, Character.class);
-         primitiveWrapperMap.put(Short.TYPE, Short.class);
-         primitiveWrapperMap.put(Integer.TYPE, Integer.class);
-         primitiveWrapperMap.put(Long.TYPE, Long.class);
-         primitiveWrapperMap.put(Double.TYPE, Double.class);
-         primitiveWrapperMap.put(Float.TYPE, Float.class);
-         primitiveWrapperMap.put(Void.TYPE, Void.TYPE);
+        primitiveWrapperMap.put(Boolean.TYPE, Boolean.class);
+        primitiveWrapperMap.put(Byte.TYPE, Byte.class);
+        primitiveWrapperMap.put(Character.TYPE, Character.class);
+        primitiveWrapperMap.put(Short.TYPE, Short.class);
+        primitiveWrapperMap.put(Integer.TYPE, Integer.class);
+        primitiveWrapperMap.put(Long.TYPE, Long.class);
+        primitiveWrapperMap.put(Double.TYPE, Double.class);
+        primitiveWrapperMap.put(Float.TYPE, Float.class);
+        primitiveWrapperMap.put(Void.TYPE, Void.TYPE);
     }
 
     /**
      * Maps wrapper {@code Class}es to their corresponding primitive types.
      */
     private static final Map<Class<?>, Class<?>> wrapperPrimitiveMap = new HashMap<Class<?>, Class<?>>();
+
     static {
         for (Class<?> primitiveClass : primitiveWrapperMap.keySet()) {
             Class<?> wrapperClass = primitiveWrapperMap.get(primitiveClass);
@@ -132,11 +134,12 @@ public class ClassUtils {
      * instance to operate.</p>
      */
     public ClassUtils() {
-      super();
+        super();
     }
 
     // Short class name
     // ----------------------------------------------------------------------
+
     /**
      * <p>Gets the class name minus the package name for an {@code Object}.</p>
      *
@@ -153,7 +156,7 @@ public class ClassUtils {
 
     /**
      * <p>Gets the class name minus the package name from a {@code Class}.</p>
-     * 
+     *
      * <p>Consider using the Java 5 API {@link Class#getSimpleName()} instead. 
      * The one known difference is that this code will return {@code "Map.Entry"} while 
      * the {@code java.lang.Class} variant will simply return {@code "Entry"}. </p>
@@ -194,8 +197,7 @@ public class ClassUtils {
      * <p>Gets the class name minus the package name from a String.</p>
      *
      * <p>The string passed in is assumed to be a class name - it is not checked.</p>
-
-     * <p>Note that this method differs from Class.getSimpleName() in that this will 
+     * <p>Note that this method differs from Class.getSimpleName() in that this will
      * return {@code "Map.Entry"} whilst the {@code java.lang.Class} variant will simply 
      * return {@code "Entry"}. </p>
      *

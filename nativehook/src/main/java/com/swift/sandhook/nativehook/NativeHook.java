@@ -12,7 +12,8 @@ public class NativeHook {
         System.loadLibrary("sandhook-native");
     }
 
-    public static void dosth() {}
+    public static void dosth() {
+    }
 
     public static native void test();
 

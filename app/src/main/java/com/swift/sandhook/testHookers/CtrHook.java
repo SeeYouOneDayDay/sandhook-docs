@@ -9,7 +9,6 @@ import com.swift.sandhook.annotation.HookMethod;
 import com.swift.sandhook.annotation.HookMethodBackup;
 import com.swift.sandhook.annotation.HookMode;
 import com.swift.sandhook.annotation.SkipParamCheck;
-import com.swift.sandhook.annotation.ThisObject;
 import com.swift.sandhook.test.TestClass;
 
 import java.lang.reflect.Method;

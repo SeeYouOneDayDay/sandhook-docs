@@ -16,6 +16,11 @@
 
 package com.android.dx.stock;
 
+import static java.lang.reflect.Modifier.ABSTRACT;
+import static java.lang.reflect.Modifier.PRIVATE;
+import static java.lang.reflect.Modifier.PUBLIC;
+import static java.lang.reflect.Modifier.STATIC;
+
 import com.android.dx.Code;
 import com.android.dx.Comparison;
 import com.android.dx.DexMaker;
@@ -43,11 +48,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import static java.lang.reflect.Modifier.ABSTRACT;
-import static java.lang.reflect.Modifier.PRIVATE;
-import static java.lang.reflect.Modifier.PUBLIC;
-import static java.lang.reflect.Modifier.STATIC;
 
 /**
  * Creates dynamic proxies of concrete classes.

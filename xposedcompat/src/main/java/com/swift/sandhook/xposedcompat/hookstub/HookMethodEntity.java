@@ -7,6 +7,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 
 public class HookMethodEntity {
 
@@ -17,6 +18,18 @@ public class HookMethodEntity {
     public Class retType;
 
     public boolean isStatic;
+
+    @Override
+    public String toString() {
+        return "HookMethodEntity{" +
+                "\r\n\t\t\t origin=" + origin +
+                ",\r\n\t\t\t hook=" + hook +
+                ",\r\n\t\t\t backup=" + backup +
+                ",\r\n\t\t\t parType=" + Arrays.toString(parType) +
+                ",\r\n\t\t\t retType=" + retType +
+                ",\r\n\t\t\t isStatic=" + isStatic +
+                "\r\n\t\t}";
+    }
 
     public HookMethodEntity(Member origin, Method hook, Method backup) {
         this.origin = origin;

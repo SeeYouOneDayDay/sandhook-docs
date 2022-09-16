@@ -12,24 +12,25 @@ package de.robv.android.xposed;
  * <p>If you want to hook one/multiple specific apps, use {@link IXposedHookLoadPackage} instead.
  */
 public interface IXposedHookZygoteInit extends IXposedMod {
-	/**
-	 * Called very early during startup of Zygote.
-	 * @param startupParam Details about the module itself and the started process.
-	 * @throws Throwable everything is caught, but will prevent further initialization of the module.
-	 */
-	void initZygote(StartupParam startupParam) throws Throwable;
+    /**
+     * Called very early during startup of Zygote.
+     * @param startupParam Details about the module itself and the started process.
+     * @throws Throwable everything is caught, but will prevent further initialization of the module.
+     */
+    void initZygote(StartupParam startupParam) throws Throwable;
 
-	/** Data holder for {@link #initZygote}. */
-	final class StartupParam {
-		/*package*/ StartupParam() {}
+    /** Data holder for {@link #initZygote}. */
+    final class StartupParam {
+        /*package*/ StartupParam() {
+        }
 
-		/** The path to the module's APK. */
-		public String modulePath;
+        /** The path to the module's APK. */
+        public String modulePath;
 
-		/**
-		 * Always {@code true} on 32-bit ROMs. On 64-bit, it's only {@code true} for the primary
-		 * process that starts the system_server.
-		 */
-		public boolean startsSystemServer;
-	}
+        /**
+         * Always {@code true} on 32-bit ROMs. On 64-bit, it's only {@code true} for the primary
+         * process that starts the system_server.
+         */
+        public boolean startsSystemServer;
+    }
 }

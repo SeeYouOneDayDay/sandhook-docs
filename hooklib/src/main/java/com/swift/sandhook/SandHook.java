@@ -23,15 +23,17 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class SandHook {
 
-    static Map<Member,HookWrapper.HookEntity> globalHookEntityMap = new ConcurrentHashMap<>();
-    static Map<Method,HookWrapper.HookEntity> globalBackupMap = new ConcurrentHashMap<>();
+    static Map<Member, HookWrapper.HookEntity> globalHookEntityMap = new ConcurrentHashMap<>();
+    static Map<Method, HookWrapper.HookEntity> globalBackupMap = new ConcurrentHashMap<>();
 
     private static HookModeCallBack hookModeCallBack;
+
     public static void setHookModeCallBack(HookModeCallBack hookModeCallBack) {
         SandHook.hookModeCallBack = hookModeCallBack;
     }
 
     private static HookResultCallBack hookResultCallBack;
+
     public static void setHookResultCallBack(HookResultCallBack hookResultCallBack) {
         SandHook.hookResultCallBack = hookResultCallBack;
     }
@@ -107,7 +109,7 @@ public class SandHook {
             SandHookMethodResolver.resolveMethod(hook, backup);
         }
         if (target instanceof Method) {
-            ((Method)target).setAccessible(true);
+            ((Method) target).setAccessible(true);
         }
 
         int mode = HookMode.AUTO;
@@ -167,7 +169,7 @@ public class SandHook {
 
     public final static Object callOriginMethod(boolean backupIsStub, Member originMethod, Method backupMethod, Object thiz, Object[] args) throws Throwable {
         //reset declaring class
-        Log.i("test","call origin method:" + originMethod + ",backupmethod:" + backupMethod,new Throwable());
+        Log.i("test", "call origin method:" + originMethod + ",backupmethod:" + backupMethod, new Throwable());
         if (!backupIsStub && SandHookConfig.SDK_INT >= Build.VERSION_CODES.N) {
             //holder in stack to avoid moving gc
             Class originClassHolder = originMethod.getDeclaringClass();
@@ -370,7 +372,8 @@ public class SandHook {
             try {
                 profile.delete();
                 profile.createNewFile();
-            } catch (Throwable throwable) {}
+            } catch (Throwable throwable) {
+            }
             FileUtils.chmod(profile.getAbsolutePath(), FileUtils.FileMode.MODE_IRUSR);
             return true;
         } catch (Throwable throwable) {
@@ -384,17 +387,21 @@ public class SandHook {
 
     //default on!
     public static native void setInlineSafeCheck(boolean check);
+
     public static native void skipAllSafeCheck(boolean skip);
 
     private static native int hookMethod(Member originMethod, Method hookMethod, Method backupMethod, int hookMode);
 
     public static native void ensureMethodCached(Method hook, Method backup);
+
     public static native void ensureDeclareClass(Member origin, Method backup);
 
     public static native boolean compileMethod(Member member);
+
     public static native boolean deCompileMethod(Member member, boolean disableJit);
 
     public static native boolean canGetObject();
+
     public static native Object getObjectNative(long thread, long address);
 
     public static native boolean is64Bit();

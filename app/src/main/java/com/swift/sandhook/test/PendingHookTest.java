@@ -1,8 +1,5 @@
 package com.swift.sandhook.test;
 
-import android.util.Log;
-
-import com.swift.sandhook.LogTags;
 import com.swift.sandhook.MyApp;
 
 public class PendingHookTest {

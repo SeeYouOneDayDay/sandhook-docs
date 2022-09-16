@@ -21,7 +21,7 @@ void ArtMethod::tryDisableInline() {
     if (SDK_INT < ANDROID_O)
         return;
     uint32_t accessFlag = getAccessFlags();
-    accessFlag &= ~ 0x08000000u;
+    accessFlag &= ~0x08000000u;
     setAccessFlags(accessFlag);
 }
 
@@ -84,11 +84,11 @@ bool ArtMethod::isCompiled() {
 }
 
 bool ArtMethod::isThumbCode() {
-    #if defined(__arm__)
+#if defined(__arm__)
     return (reinterpret_cast<Size>(getQuickCodeEntry()) & 0x1) == 0x1;
-    #else
+#else
     return false;
-    #endif
+#endif
 }
 
 void ArtMethod::setAccessFlags(uint32_t flags) {
@@ -97,8 +97,8 @@ void ArtMethod::setAccessFlags(uint32_t flags) {
 
 void ArtMethod::setPrivate() {
     uint32_t accessFlag = getAccessFlags();
-    accessFlag &= ~ 0x0001;
-    accessFlag &= ~ 0x0004;
+    accessFlag &= ~0x0001;
+    accessFlag &= ~0x0004;
     accessFlag |= 0x0002;
     setAccessFlags(accessFlag);
 }
@@ -124,11 +124,11 @@ uint32_t ArtMethod::getDexMethodIndex() {
     return CastArtMethod::dexMethodIndex->get(this);
 }
 
-void* ArtMethod::getQuickCodeEntry() {
+void *ArtMethod::getQuickCodeEntry() {
     return CastArtMethod::entryPointQuickCompiled->get(this);
 }
 
-void* ArtMethod::getInterpreterCodeEntry() {
+void *ArtMethod::getInterpreterCodeEntry() {
     return CastArtMethod::entryPointFromInterpreter->get(this);
 }
 
@@ -156,7 +156,7 @@ void ArtMethod::setDexCacheResolveList(void *list) {
     CastArtMethod::dexCacheResolvedMethods->set(this, list);
 }
 
-void ArtMethod::setDexCacheResolveItem(uint32_t index, void* item) {
+void ArtMethod::setDexCacheResolveItem(uint32_t index, void *item) {
     CastArtMethod::dexCacheResolvedMethods->setElement(this, index, item);
 }
 
@@ -168,7 +168,7 @@ void ArtMethod::setHotnessCount(uint16_t count) {
     CastArtMethod::hotnessCount->set(this, count);
 }
 
-bool ArtMethod::compile(JNIEnv* env) {
+bool ArtMethod::compile(JNIEnv *env) {
     if (isCompiled())
         return true;
     //some unknown error when trigger jit for jni method manually
@@ -176,7 +176,8 @@ bool ArtMethod::compile(JNIEnv* env) {
         return false;
     // get thread pear
     // java Thread.currentThread() 变量nativePeer
-    Size threadId = getAddressFromJavaByCallMethod(env, "com/swift/sandhook/SandHook", "getThreadId");
+    Size threadId = getAddressFromJavaByCallMethod(env, "com/swift/sandhook/SandHook",
+                                                   "getThreadId");
     if (threadId == 0)
         return false;
     return compileMethod(this, reinterpret_cast<void *>(threadId)) && isCompiled();
@@ -185,8 +186,10 @@ bool ArtMethod::compile(JNIEnv* env) {
 bool ArtMethod::deCompile() {
     if (!isCompiled())
         return true;
-    if ((isNative() && CastArtMethod::canGetJniBridge) || (!isNative() && CastArtMethod::canGetInterpreterBridge)) {
-        setQuickCodeEntry(isNative() ? CastArtMethod::genericJniStub : CastArtMethod::quickToInterpreterBridge);
+    if ((isNative() && CastArtMethod::canGetJniBridge) ||
+        (!isNative() && CastArtMethod::canGetInterpreterBridge)) {
+        setQuickCodeEntry(isNative() ? CastArtMethod::genericJniStub
+                                     : CastArtMethod::quickToInterpreterBridge);
         if (SDK_INT < ANDROID_N) {
             //TODO SetEntryPointFromInterpreterCode
         }

@@ -16,6 +16,14 @@
 
 package com.android.dx;
 
+import static com.android.dx.rop.code.Rop.BRANCH_GOTO;
+import static com.android.dx.rop.code.Rop.BRANCH_NONE;
+import static com.android.dx.rop.code.Rop.BRANCH_RETURN;
+import static com.android.dx.rop.type.Type.BT_BYTE;
+import static com.android.dx.rop.type.Type.BT_CHAR;
+import static com.android.dx.rop.type.Type.BT_INT;
+import static com.android.dx.rop.type.Type.BT_SHORT;
+
 import com.android.dx.rop.code.BasicBlockList;
 import com.android.dx.rop.code.Insn;
 import com.android.dx.rop.code.PlainCstInsn;
@@ -34,14 +42,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import static com.android.dx.rop.code.Rop.BRANCH_GOTO;
-import static com.android.dx.rop.code.Rop.BRANCH_NONE;
-import static com.android.dx.rop.code.Rop.BRANCH_RETURN;
-import static com.android.dx.rop.type.Type.BT_BYTE;
-import static com.android.dx.rop.type.Type.BT_CHAR;
-import static com.android.dx.rop.type.Type.BT_INT;
-import static com.android.dx.rop.type.Type.BT_SHORT;
 
 /**
  * Builds a sequence of instructions.

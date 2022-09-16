@@ -161,6 +161,7 @@ public class StringUtils {
 
     // Empty checks
     //-----------------------------------------------------------------------
+
     /**
      * <p>Checks if a CharSequence is empty ("") or null.</p>
      *
@@ -255,6 +256,7 @@ public class StringUtils {
 
     // Trim
     //-----------------------------------------------------------------------
+
     /**
      * <p>Removes control characters (char &lt;= 32) from both
      * ends of this String, handling {@code null} by returning
@@ -336,6 +338,7 @@ public class StringUtils {
 
     // Stripping
     //-----------------------------------------------------------------------
+
     /**
      * <p>Strips whitespace from the start and end of a String.</p>
      *
@@ -544,6 +547,7 @@ public class StringUtils {
 
     // StripAll
     //-----------------------------------------------------------------------
+
     /**
      * <p>Strips whitespace from the start and end of every String in an array.
      * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
@@ -626,7 +630,7 @@ public class StringUtils {
      */
     // See also Lucene's ASCIIFoldingFilter (Lucene 2.9) that replaces accented characters by their unaccented equivalent (and uncommitted bug fix: https://issues.apache.org/jira/browse/LUCENE-1343?focusedCommentId=12858907&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#action_12858907).
     public static String stripAccents(String input) {
-        if(input == null) {
+        if (input == null) {
             return null;
         }
         try {
@@ -637,19 +641,19 @@ public class StringUtils {
                 result = removeAccentsSUN(input);
             } else {
                 throw new UnsupportedOperationException(
-                    "The stripAccents(CharSequence) method requires at least"
-                        +" Java6, but got: "+ InitStripAccents.java6Exception
-                        +"; or a Sun JVM: "+ InitStripAccents.sunException);
+                        "The stripAccents(CharSequence) method requires at least"
+                                + " Java6, but got: " + InitStripAccents.java6Exception
+                                + "; or a Sun JVM: " + InitStripAccents.sunException);
             }
             // Note that none of the above methods correctly remove ligatures...
             return result;
-        } catch(IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             throw new RuntimeException("IllegalArgumentException occurred", iae);
-        } catch(IllegalAccessException iae) {
+        } catch (IllegalAccessException iae) {
             throw new RuntimeException("IllegalAccessException occurred", iae);
-        } catch(InvocationTargetException ite) {
+        } catch (InvocationTargetException ite) {
             throw new RuntimeException("InvocationTargetException occurred", ite);
-        } catch(SecurityException se) {
+        } catch (SecurityException se) {
             throw new RuntimeException("SecurityException occurred", se);
         }
     }
@@ -665,7 +669,7 @@ public class StringUtils {
      * @throws IllegalStateException if the {@code Normalizer} class is not available
      */
     private static String removeAccentsJava6(CharSequence text)
-        throws IllegalAccessException, InvocationTargetException {
+            throws IllegalAccessException, InvocationTargetException {
         /*
         String decomposed = java.text.Normalizer.normalize(CharSequence, Normalizer.Form.NFD);
         return java6Pattern.matcher(decomposed).replaceAll("");//$NON-NLS-1$
@@ -674,7 +678,7 @@ public class StringUtils {
             throw new IllegalStateException("java.text.Normalizer is not available", InitStripAccents.java6Exception);
         }
         String result;
-        result = (String) InitStripAccents.java6NormalizeMethod.invoke(null, new Object[] {text, InitStripAccents.java6NormalizerFormNFD});
+        result = (String) InitStripAccents.java6NormalizeMethod.invoke(null, new Object[]{text, InitStripAccents.java6NormalizerFormNFD});
         result = InitStripAccents.java6Pattern.matcher(result).replaceAll("");//$NON-NLS-1$
         return result;
     }
@@ -689,7 +693,7 @@ public class StringUtils {
      * @throws IllegalStateException if the {@code Normalizer} class is not available
      */
     private static String removeAccentsSUN(CharSequence text)
-        throws IllegalAccessException, InvocationTargetException {
+            throws IllegalAccessException, InvocationTargetException {
         /*
         String decomposed = sun.text.Normalizer.decompose(text, false, 0);
         return sunPattern.matcher(decomposed).replaceAll("");//$NON-NLS-1$
@@ -698,7 +702,7 @@ public class StringUtils {
             throw new IllegalStateException("sun.text.Normalizer is not available", InitStripAccents.sunException);
         }
         String result;
-        result = (String) InitStripAccents.sunDecomposeMethod.invoke(null, new Object[] {text, Boolean.FALSE, Integer.valueOf(0)});
+        result = (String) InitStripAccents.sunDecomposeMethod.invoke(null, new Object[]{text, Boolean.FALSE, Integer.valueOf(0)});
         result = InitStripAccents.sunPattern.matcher(result).replaceAll("");//$NON-NLS-1$
         return result;
     }
@@ -707,12 +711,12 @@ public class StringUtils {
     private static class InitStripAccents {
         // SUN internal, Java 1.3 -> Java 5
         private static final Throwable sunException;
-        private static final Method  sunDecomposeMethod;
+        private static final Method sunDecomposeMethod;
         private static final Pattern sunPattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");//$NON-NLS-1$
         // Java 6+
         private static final Throwable java6Exception;
-        private static final Method  java6NormalizeMethod;
-        private static final Object  java6NormalizerFormNFD;
+        private static final Method java6NormalizeMethod;
+        private static final Object java6NormalizerFormNFD;
         private static final Pattern java6Pattern = sunPattern;
 
         static {
@@ -726,21 +730,21 @@ public class StringUtils {
                 // java.text.Normalizer.normalize(CharSequence, Normalizer.Form.NFD);
                 // Be careful not to get Java 1.3 java.text.Normalizer!
                 Class<?> normalizerFormClass = Thread.currentThread().getContextClassLoader()
-                    .loadClass("java.text.Normalizer$Form");//$NON-NLS-1$
+                        .loadClass("java.text.Normalizer$Form");//$NON-NLS-1$
                 _java6NormalizerFormNFD = normalizerFormClass.getField("NFD").get(null);//$NON-NLS-1$
                 Class<?> normalizerClass = Thread.currentThread().getContextClassLoader()
-                    .loadClass("java.text.Normalizer");//$NON-NLS-1$
+                        .loadClass("java.text.Normalizer");//$NON-NLS-1$
                 _java6NormalizeMethod = normalizerClass.getMethod("normalize",//$NON-NLS-1$
-                        new Class[] {CharSequence.class, normalizerFormClass});//$NON-NLS-1$
+                        new Class[]{CharSequence.class, normalizerFormClass});//$NON-NLS-1$
             } catch (Exception e1) {
                 // Only check for Sun method if Java 6 method is not available
                 _java6Exception = e1;
                 try {
                     // sun.text.Normalizer.decompose(text, false, 0);
                     Class<?> normalizerClass = Thread.currentThread().getContextClassLoader()
-                        .loadClass("sun.text.Normalizer");//$NON-NLS-1$
+                            .loadClass("sun.text.Normalizer");//$NON-NLS-1$
                     _sunDecomposeMethod = normalizerClass.getMethod("decompose",//$NON-NLS-1$
-                            new Class[] {String.class, Boolean.TYPE, Integer.TYPE});//$NON-NLS-1$
+                            new Class[]{String.class, Boolean.TYPE, Integer.TYPE});//$NON-NLS-1$
                 } catch (Exception e2) {
                     _sunException = e2;
                 }
@@ -757,6 +761,7 @@ public class StringUtils {
 
     // Equals
     //-----------------------------------------------------------------------
+
     /**
      * <p>Compares two CharSequences, returning {@code true} if they are equal.</p>
      *
@@ -813,6 +818,7 @@ public class StringUtils {
 
     // IndexOf
     //-----------------------------------------------------------------------
+
     /**
      * <p>Finds the first index within a CharSequence, handling {@code null}.
      * This method uses {@link String#indexOf(int, int)} if possible.</p>
@@ -1104,6 +1110,7 @@ public class StringUtils {
 
     // LastIndexOf
     //-----------------------------------------------------------------------
+
     /**
      * <p>Finds the last index within a CharSequence, handling {@code null}.
      * This method uses {@link String#lastIndexOf(int)} if possible.</p>
@@ -1353,6 +1360,7 @@ public class StringUtils {
 
     // Contains
     //-----------------------------------------------------------------------
+
     /**
      * <p>Checks if CharSequence contains a search character, handling {@code null}.
      * This method uses {@link String#indexOf(int)} if possible.</p>
@@ -1471,6 +1479,7 @@ public class StringUtils {
 
     // IndexOfAny chars
     //-----------------------------------------------------------------------
+
     /**
      * <p>Search a CharSequence to find the first index of any
      * character in the given set of characters.</p>
@@ -1552,6 +1561,7 @@ public class StringUtils {
 
     // ContainsAny
     //-----------------------------------------------------------------------
+
     /**
      * <p>Checks if the CharSequence contains any character in the given
      * set of characters.</p>
@@ -1643,6 +1653,7 @@ public class StringUtils {
 
     // IndexOfAnyBut chars
     //-----------------------------------------------------------------------
+
     /**
      * <p>Searches a CharSequence to find the first index of any
      * character not in the given set of characters.</p>
@@ -1658,7 +1669,6 @@ public class StringUtils {
      * StringUtils.indexOfAnyBut("zzabyycdxx", new char[] {'z', 'a'} ) = 3
      * StringUtils.indexOfAnyBut("aba", new char[] {'z'} )             = 0
      * StringUtils.indexOfAnyBut("aba", new char[] {'a', 'b'} )        = -1
-
      * </pre>
      *
      * @param cs  the CharSequence to check, may be null
@@ -1741,6 +1751,7 @@ public class StringUtils {
 
     // ContainsOnly
     //-----------------------------------------------------------------------
+
     /**
      * <p>Checks if the CharSequence contains only certain characters.</p>
      *
@@ -1809,6 +1820,7 @@ public class StringUtils {
 
     // ContainsNone
     //-----------------------------------------------------------------------
+
     /**
      * <p>Checks that the CharSequence does not contain certain characters.</p>
      *
@@ -1894,6 +1906,7 @@ public class StringUtils {
 
     // IndexOfAny strings
     //-----------------------------------------------------------------------
+
     /**
      * <p>Find the first index of any of a set of potential substrings.</p>
      *
@@ -1997,6 +2010,7 @@ public class StringUtils {
 
     // Substring
     //-----------------------------------------------------------------------
+
     /**
      * <p>Gets a substring from the specified String avoiding exceptions.</p>
      *
@@ -2111,6 +2125,7 @@ public class StringUtils {
 
     // Left/Right/Mid
     //-----------------------------------------------------------------------
+
     /**
      * <p>Gets the leftmost {@code len} characters of a String.</p>
      *
@@ -2220,6 +2235,7 @@ public class StringUtils {
 
     // SubStringAfter/SubStringBefore
     //-----------------------------------------------------------------------
+
     /**
      * <p>Gets the substring before the first occurrence of a separator.
      * The separator is not returned.</p>
@@ -2386,6 +2402,7 @@ public class StringUtils {
 
     // Substring between
     //-----------------------------------------------------------------------
+
     /**
      * <p>Gets the String that is nested in between two instances of the
      * same String.</p>
@@ -2502,7 +2519,7 @@ public class StringUtils {
         if (list.isEmpty()) {
             return null;
         }
-        return list.toArray(new String [list.size()]);
+        return list.toArray(new String[list.size()]);
     }
 
     // Nested extraction
@@ -2510,6 +2527,7 @@ public class StringUtils {
 
     // Splitting
     //-----------------------------------------------------------------------
+
     /**
      * <p>Splits the provided text into an array, using whitespace as the
      * separator.
@@ -2651,7 +2669,7 @@ public class StringUtils {
      * @return an array of parsed Strings, {@code null} if null String was input
      */
     public static String[] splitByWholeSeparator(String str, String separator) {
-        return splitByWholeSeparatorWorker( str, separator, -1, false ) ;
+        return splitByWholeSeparatorWorker(str, separator, -1, false);
     }
 
     /**
@@ -2681,7 +2699,7 @@ public class StringUtils {
      *  array. A zero or negative value implies no limit.
      * @return an array of parsed Strings, {@code null} if null String was input
      */
-    public static String[] splitByWholeSeparator( String str, String separator, int max ) {
+    public static String[] splitByWholeSeparator(String str, String separator, int max) {
         return splitByWholeSeparatorWorker(str, separator, max, false);
     }
 
@@ -2828,6 +2846,7 @@ public class StringUtils {
     }
 
     // -----------------------------------------------------------------------
+
     /**
      * <p>Splits the provided text into an array, using whitespace as the
      * separator, preserving all tokens, including empty tokens created by
@@ -3213,6 +3232,7 @@ public class StringUtils {
 
     // Joining
     //-----------------------------------------------------------------------
+
     /**
      * <p>Joins the elements of the provided array into a single String
      * containing the provided list of elements.</p>
@@ -3409,7 +3429,7 @@ public class StringUtils {
      * <p>No delimiter is added before or after the list. Null objects or empty
      * strings within the iteration are represented by empty strings.</p>
      *
-     * <p>See the examples here: {@link #join(Object[],char)}. </p>
+     * <p>See the examples here: {@link #join(Object[], char)}. </p>
      *
      * @param iterator  the {@code Iterator} of values to join together, may be null
      * @param separator  the separator character to use
@@ -3454,7 +3474,7 @@ public class StringUtils {
      * <p>No delimiter is added before or after the list.
      * A {@code null} separator is the same as an empty String ("").</p>
      *
-     * <p>See the examples here: {@link #join(Object[],String)}. </p>
+     * <p>See the examples here: {@link #join(Object[], String)}. </p>
      *
      * @param iterator  the {@code Iterator} of values to join together, may be null
      * @param separator  the separator character to use, null treated as ""
@@ -3499,7 +3519,7 @@ public class StringUtils {
      * <p>No delimiter is added before or after the list. Null objects or empty
      * strings within the iteration are represented by empty strings.</p>
      *
-     * <p>See the examples here: {@link #join(Object[],char)}. </p>
+     * <p>See the examples here: {@link #join(Object[], char)}. </p>
      *
      * @param iterable  the {@code Iterable} providing the values to join together, may be null
      * @param separator  the separator character to use
@@ -3520,7 +3540,7 @@ public class StringUtils {
      * <p>No delimiter is added before or after the list.
      * A {@code null} separator is the same as an empty String ("").</p>
      *
-     * <p>See the examples here: {@link #join(Object[],String)}. </p>
+     * <p>See the examples here: {@link #join(Object[], String)}. </p>
      *
      * @param iterable  the {@code Iterable} providing the values to join together, may be null
      * @param separator  the separator character to use, null treated as ""
@@ -3536,6 +3556,7 @@ public class StringUtils {
 
     // Delete
     //-----------------------------------------------------------------------
+
     /**
      * <p>Deletes all whitespaces from a String as defined by
      * {@link Character#isWhitespace(char)}.</p>
@@ -3570,6 +3591,7 @@ public class StringUtils {
 
     // Remove
     //-----------------------------------------------------------------------
+
     /**
      * <p>Removes a substring only if it is at the beginning of a source string,
      * otherwise returns the source string.</p>
@@ -3598,7 +3620,7 @@ public class StringUtils {
         if (isEmpty(str) || isEmpty(remove)) {
             return str;
         }
-        if (str.startsWith(remove)){
+        if (str.startsWith(remove)) {
             return str.substring(remove.length());
         }
         return str;
@@ -3774,6 +3796,7 @@ public class StringUtils {
 
     // Replacing
     //-----------------------------------------------------------------------
+
     /**
      * <p>Replaces a String with another String inside a larger String, once.</p>
      *
@@ -4038,7 +4061,7 @@ public class StringUtils {
         // if recursing, this shouldn't be less than 0
         if (timeToLive < 0) {
             throw new IllegalStateException("Aborting to protect against StackOverflowError - " +
-                                            "output of one loop is the input of another");
+                    "output of one loop is the input of another");
         }
 
         int searchLength = searchList.length;
@@ -4047,9 +4070,9 @@ public class StringUtils {
         // make sure lengths are ok, these need to be equal
         if (searchLength != replacementLength) {
             throw new IllegalArgumentException("Search and Replace array lengths don't match: "
-                + searchLength
-                + " vs "
-                + replacementLength);
+                    + searchLength
+                    + " vs "
+                    + replacementLength);
         }
 
         // keep track of which still have matches
@@ -4154,6 +4177,7 @@ public class StringUtils {
 
     // Replace, character based
     //-----------------------------------------------------------------------
+
     /**
      * <p>Replaces all occurrences of a character in a String with another.
      * This is a null-safe version of {@link String#replace(char, char)}.</p>
@@ -4248,6 +4272,7 @@ public class StringUtils {
 
     // Overlay
     //-----------------------------------------------------------------------
+
     /**
      * <p>Overlays part of a String with another String.</p>
      *
@@ -4303,14 +4328,15 @@ public class StringUtils {
             end = temp;
         }
         return new StringBuilder(len + start - end + overlay.length() + 1)
-            .append(str.substring(0, start))
-            .append(overlay)
-            .append(str.substring(end))
-            .toString();
+                .append(str.substring(0, start))
+                .append(overlay)
+                .append(str.substring(end))
+                .toString();
     }
 
     // Chomping
     //-----------------------------------------------------------------------
+
     /**
      * <p>Removes one newline from end of a String if it's there,
      * otherwise leave it alone.  A newline is &quot;{@code \n}&quot;,
@@ -4391,11 +4417,12 @@ public class StringUtils {
      */
     @Deprecated
     public static String chomp(String str, String separator) {
-        return removeEnd(str,separator);
+        return removeEnd(str, separator);
     }
 
     // Chopping
     //-----------------------------------------------------------------------
+
     /**
      * <p>Remove the last character from a String.</p>
      *
@@ -4441,6 +4468,7 @@ public class StringUtils {
 
     // Padding
     //-----------------------------------------------------------------------
+
     /**
      * <p>Repeat a String {@code repeat} times to form a
      * new String.</p>
@@ -4478,9 +4506,9 @@ public class StringUtils {
 
         int outputLength = inputLength * repeat;
         switch (inputLength) {
-            case 1 :
+            case 1:
                 return repeat(str.charAt(0), repeat);
-            case 2 :
+            case 2:
                 char ch0 = str.charAt(0);
                 char ch1 = str.charAt(1);
                 char[] output2 = new char[outputLength];
@@ -4489,7 +4517,7 @@ public class StringUtils {
                     output2[i + 1] = ch1;
                 }
                 return new String(output2);
-            default :
+            default:
                 StringBuilder buf = new StringBuilder(outputLength);
                 for (int i = 0; i < repeat; i++) {
                     buf.append(str);
@@ -4519,7 +4547,7 @@ public class StringUtils {
      * @since 2.5
      */
     public static String repeat(String str, String separator, int repeat) {
-        if(str == null || separator == null) {
+        if (str == null || separator == null) {
             return repeat(str, repeat);
         } else {
             // given that repeat(String, int) is quite optimized, better to rely on it than try and splice this into it
@@ -4799,6 +4827,7 @@ public class StringUtils {
 
     // Centering
     //-----------------------------------------------------------------------
+
     /**
      * <p>Centers a String in a larger String of size {@code size}
      * using the space character (' ').<p>
@@ -4909,6 +4938,7 @@ public class StringUtils {
 
     // Case conversion
     //-----------------------------------------------------------------------
+
     /**
      * <p>Converts a String to upper case as per {@link String#toUpperCase()}.</p>
      *
@@ -5033,9 +5063,9 @@ public class StringUtils {
             return str;
         }
         return new StringBuilder(strLen)
-            .append(Character.toTitleCase(str.charAt(0)))
-            .append(str.substring(1))
-            .toString();
+                .append(Character.toTitleCase(str.charAt(0)))
+                .append(str.substring(1))
+                .toString();
     }
 
     /**
@@ -5064,9 +5094,9 @@ public class StringUtils {
             return str;
         }
         return new StringBuilder(strLen)
-            .append(Character.toLowerCase(str.charAt(0)))
-            .append(str.substring(1))
-            .toString();
+                .append(Character.toLowerCase(str.charAt(0)))
+                .append(str.substring(1))
+                .toString();
     }
 
     /**
@@ -5118,6 +5148,7 @@ public class StringUtils {
 
     // Count matches
     //-----------------------------------------------------------------------
+
     /**
      * <p>Counts how many times the substring appears in the larger string.</p>
      *
@@ -5153,6 +5184,7 @@ public class StringUtils {
 
     // Character Tests
     //-----------------------------------------------------------------------
+
     /**
      * <p>Checks if the CharSequence contains only Unicode letters.</p>
      *
@@ -5502,6 +5534,7 @@ public class StringUtils {
 
     // Defaults
     //-----------------------------------------------------------------------
+
     /**
      * <p>Returns either the passed in String,
      * or if the String is {@code null}, an empty String ("").</p>
@@ -5532,7 +5565,7 @@ public class StringUtils {
      * StringUtils.defaultString("bat", "NULL") = "bat"
      * </pre>
      *
-     * @see ObjectUtils#toString(Object,String)
+     * @see ObjectUtils#toString(Object, String)
      * @see String#valueOf(Object)
      * @param str  the String to check, may be null
      * @param defaultStr  the default String to return
@@ -5589,6 +5622,7 @@ public class StringUtils {
 
     // Reversing
     //-----------------------------------------------------------------------
+
     /**
      * <p>Reverses a String as per {@link StringBuilder#reverse()}.</p>
      *
@@ -5642,6 +5676,7 @@ public class StringUtils {
 
     // Abbreviating
     //-----------------------------------------------------------------------
+
     /**
      * <p>Abbreviates a String using ellipses. This will turn
      * "Now is the time for all good men" into "Now is the time for..."</p>
@@ -5776,16 +5811,16 @@ public class StringUtils {
             return str;
         }
 
-        if (length >= str.length() || length < middle.length()+2) {
+        if (length >= str.length() || length < middle.length() + 2) {
             return str;
         }
 
-        int targetSting = length-middle.length();
-        int startOffset = targetSting/2+targetSting%2;
-        int endOffset = str.length()-targetSting/2;
+        int targetSting = length - middle.length();
+        int startOffset = targetSting / 2 + targetSting % 2;
+        int endOffset = str.length() - targetSting / 2;
 
         StringBuilder builder = new StringBuilder(length);
-        builder.append(str.substring(0,startOffset));
+        builder.append(str.substring(0, startOffset));
         builder.append(middle);
         builder.append(str.substring(endOffset));
 
@@ -5794,6 +5829,7 @@ public class StringUtils {
 
     // Difference
     //-----------------------------------------------------------------------
+
     /**
      * <p>Compares two Strings, and returns the portion where they differ.
      * (More precisely, return the remainder of the second String,
@@ -6022,6 +6058,7 @@ public class StringUtils {
 
     // Misc
     //-----------------------------------------------------------------------
+
     /**
      * <p>Find the Levenshtein distance between two Strings.</p>
      *
@@ -6563,7 +6600,7 @@ public class StringUtils {
 
     /**
      * Converts a <code>byte[]</code> to a String using the specified character encoding.
-     * 
+     *
      * @param bytes
      *            the byte array to read from
      * @param charsetName

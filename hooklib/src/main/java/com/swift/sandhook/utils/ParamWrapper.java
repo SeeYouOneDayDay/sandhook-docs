@@ -31,15 +31,15 @@ public class ParamWrapper {
             return null;
         if (objectType.isPrimitive()) {
             if (objectType == int.class) {
-                return (int)address;
+                return (int) address;
             } else if (objectType == long.class) {
                 return address;
             } else if (objectType == short.class) {
-                return (short)address;
+                return (short) address;
             } else if (objectType == byte.class) {
-                return (byte)address;
+                return (byte) address;
             } else if (objectType == char.class) {
-                return (char)address;
+                return (char) address;
             } else if (objectType == boolean.class) {
                 return address != 0;
             } else {
@@ -57,11 +57,11 @@ public class ParamWrapper {
             if (objectType == int.class) {
                 return address;
             } else if (objectType == short.class) {
-                return (short)address;
+                return (short) address;
             } else if (objectType == byte.class) {
-                return (byte)address;
+                return (byte) address;
             } else if (objectType == char.class) {
-                return (char)address;
+                return (char) address;
             } else if (objectType == boolean.class) {
                 return address != 0;
             } else {
@@ -87,11 +87,11 @@ public class ParamWrapper {
             if (objectType == int.class) {
                 return (int) object;
             } else if (objectType == short.class) {
-                return (short)object;
+                return (short) object;
             } else if (objectType == byte.class) {
-                return (byte)object;
+                return (byte) object;
             } else if (objectType == char.class) {
-                return (char)object;
+                return (char) object;
             } else if (objectType == boolean.class) {
                 return Boolean.TRUE.equals(object) ? 1 : 0;
             } else {
@@ -107,15 +107,15 @@ public class ParamWrapper {
             return 0;
         if (objectType.isPrimitive()) {
             if (objectType == int.class) {
-                return (int)object;
+                return (int) object;
             } else if (objectType == long.class) {
                 return (long) object;
             } else if (objectType == short.class) {
-                return (short)object;
+                return (short) object;
             } else if (objectType == byte.class) {
-                return (byte)object;
+                return (byte) object;
             } else if (objectType == char.class) {
-                return (char)object;
+                return (char) object;
             } else if (objectType == boolean.class) {
                 return Boolean.TRUE.equals(object) ? 1 : 0;
             } else {

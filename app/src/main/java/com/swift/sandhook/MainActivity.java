@@ -4,13 +4,9 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.swift.sandhook.test.Inter;
-import com.swift.sandhook.test.TestClass;
 
 public class MainActivity extends Activity {
 
@@ -23,7 +19,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "MainActivity onCreate");
 
-        TextView tv =new TextView(this);
+        TextView tv = new TextView(this);
 
         setContentView(tv);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
