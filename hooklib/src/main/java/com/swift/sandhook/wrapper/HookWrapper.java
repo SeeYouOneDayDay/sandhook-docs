@@ -19,6 +19,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -438,6 +439,21 @@ public class HookWrapper {
 
         public Object callOrigin(Object thiz, Object... args) throws Throwable {
             return SandHook.callOriginMethod(backupIsStub, target, backup, thiz, args);
+        }
+
+        @Override
+        public String toString() {
+            return "HookEntity{" +
+                    "\r\n\t target=" + target +
+                    ",\r\n\t hook=" + hook +
+                    ",\r\n\t backup=" + backup +
+                    ",\r\n\t hookIsStub=" + hookIsStub +
+                    ",\r\n\t resolveDexCache=" + resolveDexCache +
+                    ",\r\n\t backupIsStub=" + backupIsStub +
+                    ",\r\n\t initClass=" + initClass +
+                    ",\r\n\t pars=" + Arrays.toString(pars) +
+                    ",\r\n\t hookMode=" + hookMode +
+                    "\r\n\t}";
         }
     }
 

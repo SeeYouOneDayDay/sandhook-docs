@@ -20,6 +20,7 @@ import com.swift.sandhook.SandHook;
 import com.swift.sandhook.SandHookConfig;
 import com.swift.sandhook.wrapper.HookWrapper;
 import com.swift.sandhook.xposedcompat.hookstub.HookStubManager;
+import com.swift.sandhook.xposedcompat.utils.DexLog;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,8 +37,8 @@ import de.robv.android.xposed.XposedHelpers;
 
 public class HookerDexMakerNew implements HookMaker {
 
-    public static final String METHOD_NAME_BACKUP = "backup";
-    public static final String METHOD_NAME_HOOK = "hook";
+    public static final String NAME_BACKUP_METHOD = "backup";
+    public static final String NAME_HOOK_METHOD = "hook";
     public static final TypeId<Object[]> objArrayTypeId = TypeId.get(Object[].class);
     private static final String CLASS_DESC_PREFIX = "L";
     private static final String CLASS_NAME_PREFIX = "SandHookerNew";
@@ -151,7 +152,7 @@ public class HookerDexMakerNew implements HookMaker {
         String dexName = className + ".jar";
 
         HookWrapper.HookEntity hookEntity = null;
-        //try load cache first
+        //try load cache first  先加载缓存
         try {
             ClassLoader loader = mDexMaker.loadClassDirect(mAppClassLoader, new File(mDexDirPath), dexName);
             if (loader != null) {
@@ -160,14 +161,16 @@ public class HookerDexMakerNew implements HookMaker {
         } catch (Throwable throwable) {
         }
 
-        //do generate
+        //do generate  生成桥接方案
         if (hookEntity == null) {
             hookEntity = doMake(className, dexName);
         }
+        DexLog.d("dexmake over------>" + hookEntity);
         SandHook.hook(hookEntity);
     }
 
     private HookWrapper.HookEntity doMake(String className, String dexName) throws Exception {
+        // 定义并生成class
         mHookerTypeId = TypeId.get(CLASS_DESC_PREFIX + className + ";");
         mDexMaker.declare(mHookerTypeId, className + ".generated", Modifier.PUBLIC, TypeId.OBJECT);
         generateFields();
@@ -202,8 +205,8 @@ public class HookerDexMakerNew implements HookMaker {
     private HookWrapper.HookEntity loadHookerClass(ClassLoader loader, String className) throws Exception {
         mHookClass = loader.loadClass(className);
         // Execute our newly-generated code in-process.
-        mHookMethod = mHookClass.getMethod(METHOD_NAME_HOOK, mActualParameterTypes);
-        mBackupMethod = mHookClass.getMethod(METHOD_NAME_BACKUP);
+        mHookMethod = mHookClass.getMethod(NAME_HOOK_METHOD, mActualParameterTypes);
+        mBackupMethod = mHookClass.getMethod(NAME_BACKUP_METHOD);
         setup(mHookClass);
         Log.i("test", "load hooker class:" + loader);
         return new HookWrapper.HookEntity(mMember, mHookMethod, mBackupMethod, false);
@@ -236,22 +239,24 @@ public class HookerDexMakerNew implements HookMaker {
     }
 
     private void generateFields() {
+        //定义三个变量
         mHookInfoFieldId = mHookerTypeId.getField(hookInfoTypeId, FIELD_NAME_HOOK_INFO);
         mMethodFieldId = mHookerTypeId.getField(memberTypeId, FIELD_NAME_METHOD);
         mBackupMethodFieldId = mHookerTypeId.getField(methodTypeId, FIELD_NAME_BACKUP_METHOD);
+        //生成三个静态变量
         mDexMaker.declare(mHookInfoFieldId, Modifier.STATIC, null);
         mDexMaker.declare(mMethodFieldId, Modifier.STATIC, null);
         mDexMaker.declare(mBackupMethodFieldId, Modifier.STATIC, null);
     }
 
     private void generateBackupMethod() {
-        mBackupMethodId = mHookerTypeId.getMethod(TypeId.VOID, METHOD_NAME_BACKUP);
+        mBackupMethodId = mHookerTypeId.getMethod(TypeId.VOID, NAME_BACKUP_METHOD);
         Code code = mDexMaker.declare(mBackupMethodId, Modifier.PUBLIC | Modifier.STATIC);
         code.returnVoid();
     }
 
     private void generateHookMethod() {
-        mHookMethodId = mHookerTypeId.getMethod(mReturnTypeId, METHOD_NAME_HOOK, mParameterTypeIds);
+        mHookMethodId = mHookerTypeId.getMethod(mReturnTypeId, NAME_HOOK_METHOD, mParameterTypeIds);
         mSandHookBridgeMethodId = TypeId.get(HookStubManager.class).getMethod(TypeId.get(Object.class), "hookBridge", memberTypeId, methodTypeId, hookInfoTypeId, TypeId.get(Object.class), TypeId.get(Object[].class));
 
         Code code = mDexMaker.declare(mHookMethodId, Modifier.PUBLIC | Modifier.STATIC);

@@ -4,7 +4,8 @@ android {
     //noinspection GradleCompatible
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.swift.sandhook.doc"
+//        applicationId "com.swift.sandhook.doc"
+        applicationId "a.a.a.sandhook.doc"
         minSdkVersion 19
         targetSdkVersion 30
         versionCode 1

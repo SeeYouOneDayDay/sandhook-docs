@@ -140,11 +140,25 @@ public class SandHookMethodResolver {
 
     private static void resolveInJava(Method hook, Method backup) throws Exception {
         Object dexCache = dexCacheField.get(hook.getDeclaringClass());
+        HookLog.d("SandHookMethodResolver.resolveInJava()"
+                +"\r\n\thook.getDeclaringClass:"+hook.getDeclaringClass()
+                +"\r\n\tdexCache:"+dexCache
+                +"\r\n\tisArtMethod:"+isArtMethod
+        );
         if (isArtMethod) {
             Object artMethod = artMethodField.get(backup);
             int dexMethodIndex = (int) dexMethodIndexField.get(artMethod);
             Object resolvedMethods = resolvedMethodsField.get(dexCache);
             ((Object[]) resolvedMethods)[dexMethodIndex] = artMethod;
+
+            HookLog.d("SandHookMethodResolver.resolveInJava()"
+                    +"\r\n\tartMethodField:"+artMethodField
+                    +"\r\n\tartMethod:"+artMethod
+                    +"\r\n\tdexMethodIndexField:"+dexMethodIndexField
+                    +"\r\n\tdexMethodIndex:"+dexMethodIndex
+                    +"\r\n\tresolvedMethodsField:"+resolvedMethodsField
+                    +"\r\n\tresolvedMethods:"+resolvedMethods
+            );
         } else {
             int dexMethodIndex = (int) dexMethodIndexField.get(backup);
             Object resolvedMethods = resolvedMethodsField.get(dexCache);

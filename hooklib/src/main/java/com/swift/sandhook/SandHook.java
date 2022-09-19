@@ -93,20 +93,26 @@ public class SandHook {
         if (HookBlackList.canNotHook(target))
             throw new HookErrorException("method <" + entity.target.toString() + "> can not hook, because of in blacklist!");
 
-
         if (SandHookConfig.delayHook && PendingHookHandler.canWork() && ClassStatusUtils.isStaticAndNoInited(entity.target)) {
+            HookLog.d("sandhook.hook.  case A. will addPendingHook.......");
             PendingHookHandler.addPendingHook(entity);
             return;
         } else if (entity.initClass) {
+            HookLog.d("sandhook.hook.  elseif case B. WILL resolveStaticMethod  and MakeInitializedClassVisibilyInitialized.......");
+
             resolveStaticMethod(target);
             MakeInitializedClassVisibilyInitialized(getThreadId());
         }
+        HookLog.d("sandhook.hook.  WILLL  resolveStaticMethod,,,,");
 
         resolveStaticMethod(backup);
 
         if (backup != null && entity.resolveDexCache) {
+            HookLog.d("sandhook.hook.  backup NOT NULL. AND  resolveDexCache. will   resolveMethod");
             SandHookMethodResolver.resolveMethod(hook, backup);
         }
+        HookLog.d("sandhook.hook.  target:"+target);
+
         if (target instanceof Method) {
             ((Method) target).setAccessible(true);
         }
@@ -118,6 +124,7 @@ public class SandHook {
 
         globalHookEntityMap.put(entity.target, entity);
 
+        HookLog.d("sandhook.hook.  mode(AUTO=0;INLINE=1;REPLACE=2):"+mode);
         int res;
         if (mode != HookMode.AUTO) {
             res = hookMethod(target, hook, backup, mode);

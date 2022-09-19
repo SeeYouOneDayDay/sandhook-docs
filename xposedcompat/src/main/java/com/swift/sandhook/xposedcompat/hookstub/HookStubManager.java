@@ -330,11 +330,11 @@ public class HookStubManager {
 
     public static Object hookBridge(Member origin, Method backup, XposedBridge.AdditionalHookInfo additionalHookInfo, Object thiz, Object... args) throws Throwable {
 
-
         if (XposedBridge.disableHooks) {
             return SandHook.callOriginMethod(origin, backup, thiz, args);
         }
 
+        //  日志打印
         DexLog.printMethodHookIn(origin);
 
         Object[] snapshot = additionalHookInfo.callbacks.getSnapshot();
